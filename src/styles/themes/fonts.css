@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../fonts/PlusJakartaSans.woff2") format("woff2");
+}
+
+html,
+body {
+  font-family: "Plus Jakarta Sans", Verdana, Geneva, Tahoma, sans-serif;
+}

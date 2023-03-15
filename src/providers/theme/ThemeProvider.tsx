@@ -5,8 +5,11 @@ import {
   useEffect,
   useState,
 } from "react";
+import { ThemeProvider as MuiThemeProvider } from "@emotion/react";
+
 import { dark } from "../../styles/themes/dark";
 import { light } from "../../styles/themes/light";
+import { theme } from "../../styles/themes/theme";
 
 const handleRawStyleChange = (themeMode: string, theme: string) => {
   const style = document.createElement("style");
@@ -59,7 +62,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ThemeContext.Provider value={{ themeMode, handleThemeMode }}>
-      {children}
+      <MuiThemeProvider theme={theme(themeMode)}>{children}</MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };
