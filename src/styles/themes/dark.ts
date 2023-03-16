@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+
 export const dark = `
     :root {
   --surface-a: #071426;
@@ -240,6 +242,18 @@ export const dark = `
   --primary-700: #678ab1;
   --primary-800: #516c8b;
   --primary-900: #3b4f65;
+  --primary-main: #635FC7;
+  --primary-light: #A8A4FF;
+  --black-main: #000112;
+  --black-light: #20212C;
+  --gray-dark: #2b2c37;
+  --gray: #3e3f4e;
+  --secondary-main: #828fa3;
+  --secondary-light: #e4ebfa;
+  --almost-white: #f4f7fd;
+  --white: #ffffff;
+  --error-main: #ea5555;
+  --error-light: #ff9898;
 }
 
 .p-autocomplete .p-autocomplete-loader {
@@ -830,6 +844,7 @@ export const dark = `
 }
 
 .p-dropdown-panel {
+  margin-top: 6px;
   background: #071426;
   color: rgba(255, 255, 255, 0.87);
   border: 1px solid #0b213f;
@@ -868,19 +883,19 @@ export const dark = `
   right: 2.5rem;
 }
 .p-dropdown-panel .p-dropdown-items {
-  padding: 0.75rem 0;
+  padding: 1rem 0;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
   margin: 0;
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   border: 0 none;
-  color: rgba(255, 255, 255, 0.87);
+  color: #828fa3;
   background: transparent;
   transition: box-shadow 0.2s;
   border-radius: 0;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
-  color: rgba(255, 255, 255, 0.87);
+  color: #828fa3;
   background: rgba(147, 197, 253, 0.16);
 }
 .p-dropdown-panel
@@ -892,13 +907,13 @@ export const dark = `
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item-group {
   margin: 0;
   padding: 0.75rem 1.25rem;
-  color: rgba(255, 255, 255, 0.87);
+  color: #828fa3;
   background: #091a32;
   font-weight: 700;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {
   padding: 0.75rem 1.25rem;
-  color: rgba(255, 255, 255, 0.87);
+  color: #828fa3;
   background: transparent;
 }
 
@@ -1923,26 +1938,8 @@ export const dark = `
 }
 
 .p-button {
-  color: #1c2127;
-  background: #93c5fd;
-  border: 1px solid #93c5fd;
-  padding: 0.75rem 1.25rem;
-  font-size: 1rem;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s,
     box-shadow 0.2s;
-  border-radius: 6px;
-}
-.p-button:enabled:hover,
-.p-button:not(button):not(a):not(.p-disabled):hover {
-  background: #7fbafd;
-  color: #1c2127;
-  border-color: #7fbafd;
-}
-.p-button:enabled:active,
-.p-button:not(button):not(a):not(.p-disabled):active {
-  background: #6cb0fc;
-  color: #1c2127;
-  border-color: #6cb0fc;
 }
 .p-button.p-button-outlined {
   background-color: transparent;

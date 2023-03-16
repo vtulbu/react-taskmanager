@@ -7,10 +7,13 @@ export const ThemeSwitcher = () => {
   const checked = themeMode === "dark" ? true : false;
 
   return (
-    <InputSwitch
-      aria-label="Switch Theme"
-      checked={checked}
-      onChange={() => handleThemeMode?.()}
-    />
+    <div>
+      <InputSwitch
+        aria-label="Switch Theme"
+        checked={checked}
+        onChange={() => handleThemeMode?.()}
+      />
+      Theme Switcher
+    </div>
   );
 };

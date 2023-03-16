@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+
 export const light = `:root {
   --surface-a: #ffffff;
   --surface-b: #f8f9fa;
@@ -22,16 +24,6 @@ export const light = `:root {
   --surface-700: #616161;
   --surface-800: #424242;
   --surface-900: #212121;
-  --gray-50: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #eeeeee;
-  --gray-300: #e0e0e0;
-  --gray-400: #bdbdbd;
-  --gray-500: #9e9e9e;
-  --gray-600: #757575;
-  --gray-700: #616161;
-  --gray-800: #424242;
-  --gray-900: #212121;
   --content-padding: 1.25rem;
   --inline-spacing: 0.5rem;
   --border-radius: 6px;
@@ -239,6 +231,18 @@ export const light = `:root {
   --primary-700: #295bac;
   --primary-800: #204887;
   --primary-900: #183462;
+  --primary-main: #635FC7;
+  --primary-light: #A8A4FF;
+  --black-main: #000112;
+  --black-light: #20212C;
+  --gray-dark: #2b2c37;
+  --gray: #3e3f4e;
+  --secondary-main: #828fa3;
+  --secondary-light: #e4ebfa;
+  --almost-white: #f4f7fd;
+  --white: #ffffff;
+  --error-main: #ea5555;
+  --error-light: #ff9898;
 }
 
 .p-autocomplete .p-autocomplete-loader {
@@ -825,6 +829,7 @@ export const light = `:root {
 }
 
 .p-dropdown-panel {
+  margin-top: 6px;
   background: #ffffff;
   color: #495057;
   border: 0 none;
@@ -859,16 +864,17 @@ export const light = `:root {
   .p-dropdown-header
   .p-dropdown-clearable-filter
   .p-dropdown-filter-clear-icon {
+  top: 1rem;
   right: 2.5rem;
 }
 .p-dropdown-panel .p-dropdown-items {
-  padding: 0.75rem 0;
+  padding: 1rem 0;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
   margin: 0;
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   border: 0 none;
-  color: #495057;
+  color: #828fa3;
   background: transparent;
   transition: box-shadow 0.2s;
   border-radius: 0;
@@ -880,7 +886,7 @@ export const light = `:root {
 .p-dropdown-panel
   .p-dropdown-items
   .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
-  color: #495057;
+  color: #828fa3;
   background: #e9ecef;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item-group {
@@ -1912,26 +1918,8 @@ export const light = `:root {
 }
 
 .p-button {
-  color: #ffffff;
-  background: #3b82f6;
-  border: 1px solid #3b82f6;
-  padding: 0.75rem 1.25rem;
-  font-size: 1rem;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s,
     box-shadow 0.2s;
-  border-radius: 6px;
-}
-.p-button:enabled:hover,
-.p-button:not(button):not(a):not(.p-disabled):hover {
-  background: #3b82f6;
-  color: #ffffff;
-  border-color: #3b82f6;
-}
-.p-button:enabled:active,
-.p-button:not(button):not(a):not(.p-disabled):active {
-  background: #3b82f6;
-  color: #ffffff;
-  border-color: #3b82f6;
 }
 .p-button.p-button-outlined {
   background-color: transparent;
