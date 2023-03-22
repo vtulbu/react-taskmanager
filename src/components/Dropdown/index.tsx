@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
-import { DropdownProps } from "primereact/dropdown";
-import * as S from "./styled";
-import { DropdownIconSvg } from "./DropdownIconSvg";
 import { useTheme } from "@emotion/react";
+import { DropdownProps } from "primereact/dropdown";
+import { FC, useState } from "react";
+import { DropdownIconSvg } from "../SVGs/DropdownIconSvg";
+import * as S from "./styled";
 
 type CustomDropdownProps = {
   label?: string;

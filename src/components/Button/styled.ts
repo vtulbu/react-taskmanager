@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { Button as PrimeButton, ButtonProps } from "primereact/button";
 import { rgba } from "polished";
+import { Button as PrimeButton, ButtonProps } from "primereact/button";
 
 type CustomButtonProps = ButtonProps & {
   color?: "primary" | "secondary";
+  padding?: string;
 };
 
 export const Button = styled(PrimeButton)<CustomButtonProps>`
@@ -16,7 +17,7 @@ export const Button = styled(PrimeButton)<CustomButtonProps>`
       color === "secondary" ? theme.colors.primary : theme.colors.white};
     border-radius: 50px;
     border: none;
-    padding: 15px 61.5px;
+    padding: ${({ padding }) => (padding ? padding : "15px 36px")};
     font-family: "Plus Jakarta Sans";
     font-style: normal;
     font-weight: 700;
@@ -31,6 +32,10 @@ export const Button = styled(PrimeButton)<CustomButtonProps>`
         font-size: 13px;
         line-height: 23px;
     `}
+
+    &.p-button.p-button-icon-only {
+      padding: ${({ padding }) => (padding ? padding : "15px 36px")};
+    }
 
     :hover {
       background-color: ${({ color = "primary" }) =>

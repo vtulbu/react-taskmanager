@@ -1,7 +1,7 @@
-import { useState, FC } from "react";
 import { CheckboxProps } from "primereact/checkbox";
+import { FC, useState } from "react";
+import { CheckedSvg } from "../SVGs/CheckedSvg";
 import * as S from "./styled";
-import { CheckedSvg } from "./CheckedSvg";
 
 export const Checkbox: FC<
   Omit<CheckboxProps, "checked"> & {

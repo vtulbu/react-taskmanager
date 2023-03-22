@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useMemo,
 } from "react";
 import { ThemeProvider as MuiThemeProvider } from "@emotion/react";
 
@@ -47,21 +48,23 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [cachedTheme]);
 
-  const handleThemeMode = () => {
-    setThemeMode((prevValue) => {
-      if (prevValue === "dark") {
-        handleRawStyleChange("light", light);
-        localStorage.setItem("theme", "light");
-        return "light";
-      }
-      handleRawStyleChange("dark", dark);
-      localStorage.setItem("theme", "dark");
-      return "dark";
-    });
-  };
+  const providerValues = useMemo(() => {
+    const handleThemeMode = () => {
+      setThemeMode((prevValue) => {
+        if (prevValue === "dark") {
+          localStorage.setItem("theme", "light");
+          return "light";
+        }
+        localStorage.setItem("theme", "dark");
+        return "dark";
+      });
+    };
+
+    return { themeMode, handleThemeMode };
+  }, [themeMode]);
 
   return (
-    <ThemeContext.Provider value={{ themeMode, handleThemeMode }}>
+    <ThemeContext.Provider value={providerValues}>
       <MuiThemeProvider theme={theme(themeMode)}>{children}</MuiThemeProvider>
     </ThemeContext.Provider>
   );
