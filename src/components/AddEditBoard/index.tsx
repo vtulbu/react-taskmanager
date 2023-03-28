@@ -1,15 +1,31 @@
 import { useState } from "react";
 import { useBoards } from "src/providers/board/BoardProvider";
+import { Column } from "src/providers/board/types";
 import { useDialog } from "src/providers/dialog/DialogProvider";
 import { Button } from "../Button";
 import { CloseSvg } from "../SVGs/CloseSvg";
 import { TextField } from "../TextField";
 import * as S from "./styled";
 
-export const CreateNewBoard = () => {
-  const [boardName, setBoardName] = useState<string>("");
-  const [boardColumns, setBoardColumns] = useState<{ label: string }[]>([]);
-  const [, { handleAddBoard }] = useBoards();
+export const AddEditBoard = ({
+  isAddingColumnOnly,
+  isEditing,
+  boardId,
+}: {
+  isAddingColumnOnly?: boolean;
+  isEditing?: boolean;
+  boardId?: string;
+}) => {
+  const [{ boards }, { handleAddBoard, handleEditBoard }] = useBoards();
+
+  const currentBoard = boards.find((board) => board.id === boardId);
+
+  const [boardName, setBoardName] = useState<string>(
+    isEditing ? currentBoard?.label || "" : ""
+  );
+  const [boardColumns, setBoardColumns] = useState<Column[]>(
+    isEditing ? currentBoard?.columns || [] : []
+  );
   const [, { closeDialog }] = useDialog();
 
   const handleAddColumn = () => {
@@ -29,6 +45,7 @@ export const CreateNewBoard = () => {
         placeholder="e.g. Web Design"
         onChange={(e) => setBoardName(e.target.value)}
         value={boardName}
+        disabled={isAddingColumnOnly}
       />
       <S.DissmissableContainer>
         {boardColumns.map((column, idx) => {
@@ -50,7 +67,7 @@ export const CreateNewBoard = () => {
               <Button
                 icon={<CloseSvg />}
                 onClick={() => {
-                  dissmissColumn(column.label);
+                  dissmissColumn(column.label || "");
                 }}
                 style={{
                   ...(idx === 0 && { marginTop: "24px" }),
@@ -72,9 +89,15 @@ export const CreateNewBoard = () => {
         }}
       />
       <Button
-        label="Create New Board"
+        label={isEditing ? "Save Changes" : "Create New Board"}
         onClick={() => {
-          handleAddBoard({ label: boardName, columns: boardColumns });
+          isEditing
+            ? handleEditBoard({
+                label: boardName,
+                boardId,
+                columns: boardColumns,
+              })
+            : handleAddBoard({ label: boardName, columns: boardColumns });
           closeDialog();
         }}
       />

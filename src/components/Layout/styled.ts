@@ -10,7 +10,7 @@ export const LayoutContainer = styled.div`
 export const Content = styled.div<{ isSidebarOpen: boolean }>`
   height: calc(100vh - 81px);
   margin-left: ${({ isSidebarOpen }) => (isSidebarOpen ? `260px` : `0`)};
-  transition: margin 0.3s ease-out;
+  transition: margin 0.3s;
   background-color: ${({ theme }) =>
     theme.mode === "dark"
       ? theme.colors.veryDarkGray

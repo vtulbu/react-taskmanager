@@ -1,21 +1,28 @@
 import { FC } from "react";
 import { useMatch } from "react-router-dom";
 
-import { LogoSVG } from "../SVGs/LogoSvg";
-
 import { DotMenu } from "..";
 import { Button } from "../Button";
-import { paths } from "../Sidebar/mockData";
-import * as S from "./styled";
+
+import { LogoSVG } from "../SVGs/LogoSvg";
 import { PlusSvg } from "../SVGs/PlusSvg";
 import { LogoIconSvg } from "../SVGs/LogoIconSvg";
 import { SidebarArrowSvg } from "../SVGs/SideBarArrowSvg";
 import { useSidebar } from "src/providers/sidebar/SidebarProvider";
+import { useBoards } from "src/providers/board/BoardProvider";
+
+import * as S from "./styled";
+import { useDialog } from "src/providers/dialog/DialogProvider";
+import { AddEditTask } from "../AddEditTask";
 
 export const Header: FC = () => {
   const [, { handleSidebarState }] = useSidebar();
+  const [, { openDialog }] = useDialog();
+  const [{ boards }] = useBoards();
   const match = useMatch("boards/:id");
-  const boardName = paths.find((path) => path.id === match?.params.id)?.label;
+  const boardName = boards.find(
+    (board) => board.id === match?.params.id
+  )?.label;
 
   return (
     <S.HeaderContainer>
@@ -35,7 +42,13 @@ export const Header: FC = () => {
 
         <S.HeaderActions>
           <Button
-            disabled
+            onClick={() => {
+              openDialog({
+                body: <AddEditTask boardId={match?.params.id} />,
+                size: "medium",
+                title: "Add New Task",
+              });
+            }}
             label={window.innerWidth > 768 ? "+ Add New Task" : undefined}
             {...(window.innerWidth <= 768 && {
               icon: <PlusSvg />,

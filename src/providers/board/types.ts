@@ -1,6 +1,8 @@
 export type Task = {
-  label: string;
-  id: string;
+  label?: string;
+  id?: string;
+  description?: string;
+  subTasks?: { label: string }[];
 };
 
 export type Column = {

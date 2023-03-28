@@ -2,7 +2,7 @@ import { useBoards } from "src/providers/board/BoardProvider";
 import { useDialog } from "src/providers/dialog/DialogProvider";
 import { useSidebar } from "src/providers/sidebar/SidebarProvider";
 import { Button } from "../Button";
-import { CreateNewBoard } from "../CreateNewBoard";
+import { AddEditBoard } from "../AddEditBoard";
 import { paths } from "../Sidebar/mockData";
 import { BoardLinkSvg } from "../SVGs/BoardLinkSvg";
 import { EyeClosedSvg } from "../SVGs/EyeClosedSvg";
@@ -29,7 +29,7 @@ export const MenuBody = () => {
               onClick={() => {
                 handleSidebarState();
                 openDialog({
-                  body: <CreateNewBoard />,
+                  body: <AddEditBoard />,
                   size: "medium",
                   title: "Add New Board",
                 });
