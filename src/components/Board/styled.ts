@@ -6,6 +6,7 @@ export const BoardContainer = styled.div<{ empty?: boolean }>`
   height: 100%;
   display: flex;
   padding: 24px;
+  overflow-x: scroll;
   ${({ empty }) =>
     empty
       ? `
@@ -18,6 +19,7 @@ export const BoardContainer = styled.div<{ empty?: boolean }>`
 
 export const BoardColumn = styled.div`
   width: 280px;
+  min-width: 280px;
   display: flex;
   flex-direction: column;
   gap: 20px;

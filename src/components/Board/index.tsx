@@ -28,7 +28,7 @@ export const Board = () => {
           boardId={boardId}
         />
       ),
-      size: "medium",
+      size: window.innerWidth < 768 ? "small" : "medium",
       title: "Edit Board",
     });
   };

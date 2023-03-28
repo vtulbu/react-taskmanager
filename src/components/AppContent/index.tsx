@@ -3,10 +3,8 @@ import { Board } from "../Board";
 
 export const AppContent = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/boards/:id" element={<Board />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/boards/:id" element={<Board />} />
+    </Routes>
   );
 };

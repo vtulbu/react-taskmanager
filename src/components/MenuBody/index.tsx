@@ -30,7 +30,7 @@ export const MenuBody = () => {
                 handleSidebarState();
                 openDialog({
                   body: <AddEditBoard />,
-                  size: "medium",
+                  size: window.innerWidth < 768 ? "small" : "medium",
                   title: "Add New Board",
                 });
               }}
