@@ -9,12 +9,38 @@ type CustomButtonProps = ButtonProps & {
 
 export const Button = styled(PrimeButton)<CustomButtonProps>`
   && {
-    background-color: ${({ color, theme }) =>
+    ${({ theme, color }) => `
+      ${
+        theme.mode === "light"
+          ? `
+        background-color: 
+          ${
+            color === "secondary"
+              ? rgba(theme.colors.primary, 0.1)
+              : theme.colors.primary
+          };
+        color: ${
+          color === "secondary" ? theme.colors.primary : theme.colors.white
+        };
+      `
+          : `
+        background-color: 
+            ${
+              color === "secondary" ? theme.colors.white : theme.colors.primary
+            };
+        color: ${
+          color === "secondary" ? theme.colors.primary : theme.colors.white
+        };
+        `
+      }
+      
+    `}
+    /* background-color: ${({ color, theme }) =>
       color === "secondary"
         ? rgba(theme.colors.primary, 0.1)
         : theme.colors.primary};
     color: ${({ color, theme }) =>
-      color === "secondary" ? theme.colors.primary : theme.colors.white};
+      color === "secondary" ? theme.colors.primary : theme.colors.white}; */
     border-radius: 50px;
     border: none;
     padding: ${({ padding }) => (padding ? padding : "15px 36px")};

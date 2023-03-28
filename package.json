@@ -48,7 +48,9 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.1",
     "react-resize-detector": "^8.0.4",
-    "react-router-dom": "^6.9.0"
+    "react-router-dom": "^6.9.0",
+    "uuid": "^9.0.0"
   }
 }

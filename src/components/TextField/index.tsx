@@ -12,9 +12,11 @@ type CustomTextFieldProps = {
 export const TextField: FC<InputTextProps & CustomTextFieldProps> = (props) => {
   return (
     <S.TextFieldContainer>
-      <S.TextFieldLabel>{props.label}</S.TextFieldLabel>
-      <S.TextField {...props} placeholder="test placeholder" />
-      <S.HelperText error={props.error}>{props.helperText}</S.HelperText>
+      {props.label && <S.TextFieldLabel>{props.label}</S.TextFieldLabel>}
+      <S.TextField {...props} />
+      {props.helperText && (
+        <S.HelperText error={props.error}>{props.helperText}</S.HelperText>
+      )}
     </S.TextFieldContainer>
   );
 };

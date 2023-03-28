@@ -29,7 +29,7 @@ export const Header: FC = () => {
             window.innerWidth <= 768 && handleSidebarState();
           }}
         >
-          <h2>{boardName}</h2>
+          {boardName && <h2>{boardName}</h2>}
           {window.innerWidth <= 768 && <SidebarArrowSvg />}
         </S.HeaderTitle>
 

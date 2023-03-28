@@ -48,6 +48,8 @@ export const HeaderTitle = styled.div`
 
   @media only screen and (max-width: 768px) {
     cursor: pointer;
+    height: 24px;
+    width: fit-content;
   }
 `;
 

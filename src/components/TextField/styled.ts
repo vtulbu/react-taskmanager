@@ -4,8 +4,8 @@ import { InputText } from "primereact/inputtext";
 
 export const TextFieldContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
-  height: 60px;
   justify-content: space-between;
   position: relative;
 `;
@@ -46,6 +46,7 @@ export const TextField = styled(InputText)<{ error?: boolean }>`
 `;
 
 export const TextFieldLabel = styled.label`
+  margin-bottom: 8px;
   font-family: "Plus Jakarta Sans";
   font-weight: 700;
   font-size: 12px;

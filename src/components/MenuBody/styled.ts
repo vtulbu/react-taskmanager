@@ -7,6 +7,7 @@ export const MenuContent = styled.div`
   justify-content: space-between;
   height: 100%;
   width: 100%;
+
   @media only screen and (max-width: 768px) {
     padding: 16px 0;
   }
@@ -31,7 +32,39 @@ export const NavLinks = styled.div`
   width: 100%;
 `;
 
-export const NavLink = styled(RouterNavLink)`
+export const NavLink = styled(RouterNavLink)<{ asButton?: boolean }>`
+  ${({ asButton }) =>
+    asButton
+      ? `
+    button
+  `
+      : ``}
+
+  .as-button {
+    background-color: transparent;
+    border: none;
+    height: 48px;
+    border-radius: 0 100px 100px 0;
+    display: flex;
+    width: calc(100% - 24px);
+    padding-left: 24px;
+    align-items: center;
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.primary};
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 19px;
+    font-family: "Plus Jakarta Sans";
+    gap: 16px;
+    width: 100%;
+    padding: 0;
+
+    @media only screen and (max-width: 768px) {
+      gap: 12px;
+    }
+  }
+
   height: 48px;
   border-radius: 0 100px 100px 0;
   display: flex;
@@ -69,21 +102,24 @@ export const NavLink = styled(RouterNavLink)`
   }
 
   :last-child {
-    color: ${({ theme }) => theme.colors.primary};
-
-    svg {
-      path {
-        fill: ${({ theme }) => theme.colors.primary};
-      }
-    }
-
-    &.active {
-      color: ${({ theme }) => theme.colors.white};
-      background-color: ${({ theme }) => theme.colors.primary};
+    .as-button {
+      color: ${({ theme }) => theme.colors.primary};
 
       svg {
         path {
-          fill: ${({ theme }) => theme.colors.white};
+          fill: ${({ theme }) => theme.colors.primary};
+        }
+      }
+    }
+    &.active {
+      .as-button {
+        color: ${({ theme }) => theme.colors.white};
+        background-color: ${({ theme }) => theme.colors.primary};
+
+        svg {
+          path {
+            fill: ${({ theme }) => theme.colors.white};
+          }
         }
       }
     }

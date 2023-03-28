@@ -6,7 +6,6 @@ export const AppContent = () => {
     <>
       <Routes>
         <Route path="/boards/:id" element={<Board />} />
-        <Route path="/create-new-board" element={<>create new board</>} />
       </Routes>
     </>
   );
