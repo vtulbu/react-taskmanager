@@ -1,17 +1,16 @@
-import styled from "@emotion/styled";
-import { Sidebar as PrimeSidebar } from "primereact/sidebar";
+import styled from '@emotion/styled';
+import { Sidebar as PrimeSidebar } from 'primereact/sidebar';
 
 export const Sidebar = styled(PrimeSidebar)`
   && {
-    width: 260px;
     height: calc(100vh - 80px);
-    top: 80px;
+    top: var(--header-height-mobile);
     border-top: none;
     border-right: 1px solid
       ${({ theme }) =>
-        theme.mode === "dark" ? theme.colors.grayMain : theme.colors.whiteDark};
+        theme.mode === 'dark' ? theme.colors.grayMain : theme.colors.whiteDark};
     background-color: ${({ theme }) =>
-      theme.mode === "dark" ? theme.colors.grayDark : theme.colors.white};
+      theme.mode === 'dark' ? theme.colors.grayDark : theme.colors.white};
 
     box-shadow: none;
 
@@ -23,8 +22,8 @@ export const Sidebar = styled(PrimeSidebar)`
       padding: 0;
     }
 
-    &.p-sidebar:not([class*="p-sidebar-"]) {
-      ${({ visible }) => (!visible ? "display: none" : "display: block")}
+    &.p-sidebar:not([class*='p-sidebar-']) {
+      ${({ visible }) => (!visible ? 'display: none' : 'display: block')}
     }
 
     .p-button.p-button-text {
@@ -36,6 +35,14 @@ export const Sidebar = styled(PrimeSidebar)`
       &:hover {
         color: ${({ theme }) => theme.colors.grayLight};
       }
+    }
+
+    @media (min-width: 768px) {
+      top: var(--header-height-tablet);
+    }
+
+    @media (min-width: 1440px) {
+      top: var(--header-height-desktop);
     }
   }
 `;

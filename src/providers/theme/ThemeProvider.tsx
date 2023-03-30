@@ -5,62 +5,55 @@ import {
   useEffect,
   useState,
   useMemo,
-} from "react";
-import { ThemeProvider as MuiThemeProvider } from "@emotion/react";
+} from 'react';
+import { ThemeProvider as MuiThemeProvider } from '@emotion/react';
 
-import { dark } from "../../styles/themes/dark";
-import { light } from "../../styles/themes/light";
-import { theme } from "../../styles/themes/theme";
+import { theme } from '../../styles/themes/theme';
 
-const handleRawStyleChange = (themeMode: string, theme: string) => {
-  const style = document.createElement("style");
-  document.head.appendChild(style);
-  document
-    .querySelectorAll(
-      `[theme-mode="${themeMode === "dark" ? "light" : "dark"}"]`
-    )
-    .forEach((e) => e.remove());
-  style.setAttribute("theme-mode", themeMode);
-  style.innerHTML = theme;
-};
+const THEME = 'theme' as const;
+const LIGHT = 'light' as const;
+const DARK = 'dark' as const;
+
+type ThemeMode = typeof LIGHT | typeof DARK;
 
 const ThemeContext = createContext<{
-  themeMode: "light" | "dark";
+  themeMode: typeof LIGHT | typeof DARK;
   handleThemeMode?: () => void;
-}>({ themeMode: "dark" });
+}>({ themeMode: DARK });
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const cachedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-
-  const [themeMode, setThemeMode] = useState<"light" | "dark">("dark");
-
-  useEffect(() => {
-    const hasStyles = Boolean(
-      document.querySelectorAll(`[theme-mode="${cachedTheme}"]`).length
-    );
-
-    if (cachedTheme === "light") {
-      setThemeMode("light");
-      !hasStyles && handleRawStyleChange("light", light);
-    } else {
-      setThemeMode("dark");
-      !hasStyles && handleRawStyleChange("dark", dark);
-    }
-  }, [cachedTheme]);
+  const cachedTheme = (localStorage.getItem(THEME) || LIGHT) as ThemeMode;
+  const [themeMode, setThemeMode] = useState<ThemeMode>(cachedTheme);
 
   const providerValues = useMemo(() => {
     const handleThemeMode = () => {
       setThemeMode((prevValue) => {
-        if (prevValue === "dark") {
-          localStorage.setItem("theme", "light");
-          return "light";
+        if (prevValue === DARK) {
+          localStorage.setItem(THEME, LIGHT);
+          return LIGHT;
         }
-        localStorage.setItem("theme", "dark");
-        return "dark";
+        localStorage.setItem(THEME, DARK);
+        return DARK;
       });
     };
 
     return { themeMode, handleThemeMode };
+  }, [themeMode]);
+
+  useEffect(() => {
+    const isStylesheetCreated = document.getElementById('theme-link');
+
+    if (!isStylesheetCreated) {
+      const link = document.createElement('link');
+      link.setAttribute('id', 'theme-link');
+      link.setAttribute('rel', 'stylesheet');
+      link.setAttribute('href', `/themes/${themeMode}.css`);
+      document.head.appendChild(link);
+    }
+
+    if (isStylesheetCreated) {
+      isStylesheetCreated.setAttribute('href', `/themes/${themeMode}.css`);
+    }
   }, [themeMode]);
 
   return (

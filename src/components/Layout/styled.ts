@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const LayoutContainer = styled.div`
   width: 100%;
@@ -9,16 +9,22 @@ export const LayoutContainer = styled.div`
 
 export const Content = styled.div<{ isSidebarOpen: boolean }>`
   height: calc(100vh - 81px);
-  margin-left: ${({ isSidebarOpen }) => (isSidebarOpen ? `260px` : `0`)};
+  margin-left: ${({ isSidebarOpen }) =>
+    isSidebarOpen ? `var(--sidebar-width-tablet)` : `0`};
   transition: margin 0.3s;
   background-color: ${({ theme }) =>
-    theme.mode === "dark"
+    theme.mode === 'dark'
       ? theme.colors.veryDarkGray
       : theme.colors.almostWhite};
 
   @media only screen and (max-width: 768px) {
     height: calc(100vh - 64px);
     margin: 0;
+  }
+
+  @media (min-width: 1440px) {
+    margin-left: ${({ isSidebarOpen }) =>
+      isSidebarOpen ? `var(--sidebar-width-desktop)` : `0`};
   }
 `;
 

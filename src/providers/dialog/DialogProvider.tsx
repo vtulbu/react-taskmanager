@@ -1,6 +1,8 @@
-import { title } from "process";
-import { ReactNode, createContext, useContext, useMemo, useState } from "react";
-import { Dialog } from "src/components/Dialog";
+import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Dialog } from 'src/components/Dialog';
+import { useBoards } from '../board/BoardProvider';
+import { BOARDS } from '../../constants';
 
 type DialogContextTypes = [
   { isDialogOpen: boolean },
@@ -10,7 +12,7 @@ type DialogContextTypes = [
       size,
     }: {
       body: ReactNode;
-      size?: "small" | "medium";
+      size?: 'small' | 'medium';
       title?: string;
     }) => void;
     closeDialog: () => void;
@@ -25,9 +27,11 @@ export const DialogContext = createContext<DialogContextTypes>([
 ]);
 
 export const DialogProvider = ({ children }: { children: ReactNode }) => {
+  const navigate = useNavigate();
+  const [{ currentBoard }] = useBoards();
   const [visible, setVisible] = useState(false);
   const [element, setElement] = useState<ReactNode>();
-  const [size, setSize] = useState<"small" | "medium">();
+  const [size, setSize] = useState<'small' | 'medium'>();
   const [title, setTitle] = useState<string>();
 
   const returnValues: DialogContextTypes = useMemo(() => {
@@ -37,7 +41,7 @@ export const DialogProvider = ({ children }: { children: ReactNode }) => {
       title,
     }: {
       body: ReactNode;
-      size?: "small" | "medium";
+      size?: 'small' | 'medium';
       title?: string;
     }) => {
       setElement(body);
@@ -47,6 +51,7 @@ export const DialogProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const closeDialog = () => {
+      navigate(`${BOARDS}/${currentBoard?.id}`);
       setVisible(false);
     };
 
@@ -60,7 +65,10 @@ export const DialogProvider = ({ children }: { children: ReactNode }) => {
         size={size}
         visible={visible}
         dismissableMask
-        onHide={() => setVisible(false)}
+        onHide={() => {
+          navigate(`${BOARDS}/${currentBoard?.id}`);
+          setVisible(false);
+        }}
       >
         {element}
       </Dialog>

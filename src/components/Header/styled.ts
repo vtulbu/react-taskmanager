@@ -1,32 +1,32 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const HeaderContainer = styled.header`
-  height: 81px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 225px 1px 1fr;
+  display: flex;
   align-items: center;
-  padding: 0 4px 0 34px;
+  padding: 16px;
   background-color: ${({ theme }) =>
-    theme.mode === "dark" ? theme.colors.grayDark : theme.colors.white};
-
+    theme.mode === 'dark' ? theme.colors.grayDark : theme.colors.white};
   transition: background-color 0.2s;
   position: relative;
-  border-bottom: 1px solid
-    ${({ theme }) =>
-      theme.mode === "dark" ? theme.colors.grayMain : theme.colors.whiteDark};
+  border-bottom: 1px solid var(--lines);
 
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     grid-template-columns: 25px 1fr;
-    padding: 0 4px 0 25px;
     height: 64px;
-    z-index: 9999;
+    z-index: 1200;
+  }
+
+  @media (min-width: 768px) {
+    padding: 16px 24px;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 20px 32px 28px 24px;
   }
 `;
 
-export const LogoContainer = styled.div``;
-
 export const HeaderTitleAndActions = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,14 +39,7 @@ export const HeaderTitle = styled.div`
   gap: 8px;
   position: relative;
 
-  h2 {
-    margin: 0;
-    font-size: 18px;
-    line-height: 23px;
-    padding: 0;
-  }
-
-  @media only screen and (max-width: 768px) {
+  @media (max-width: 768px) {
     cursor: pointer;
     height: 24px;
     width: fit-content;
@@ -57,12 +50,18 @@ export const HeaderActions = styled.div`
   display: flex;
   height: fit-content;
   align-items: center;
+  gap: 16px;
 `;
 
 export const Divider = styled.div`
   background-color: ${({ theme }) =>
-    theme.mode === "dark" ? theme.colors.grayMain : theme.colors.whiteDark};
+    theme.mode === 'dark' ? theme.colors.grayMain : theme.colors.whiteDark};
   width: 100%;
   height: 100%;
   transition: background-color 0.2s;
+`;
+
+export const BoardName = styled.h2`
+  font-size: 24px;
+  line-height: 30px;
 `;

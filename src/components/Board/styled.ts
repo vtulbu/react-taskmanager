@@ -1,12 +1,13 @@
-import styled from "@emotion/styled";
-import { rgba } from "polished";
-import { Badge } from "primereact/badge";
+import styled from '@emotion/styled';
+import { rgba } from 'polished';
+import { Badge } from 'primereact/badge';
 
 export const BoardContainer = styled.div<{ empty?: boolean }>`
   height: 100%;
   display: flex;
   padding: 24px;
   overflow-x: scroll;
+  gap: 24px;
   ${({ empty }) =>
     empty
       ? `
@@ -14,7 +15,7 @@ export const BoardContainer = styled.div<{ empty?: boolean }>`
         align-items: center;
         flex-direction: column;
         `
-      : `gap: 24px;`};
+      : ``};
 `;
 
 export const BoardColumn = styled.div`
@@ -38,7 +39,7 @@ export const BoardColumn = styled.div`
 `;
 
 export const BoardColumnLabel = styled.div`
-  font-family: "Plus Jakarta Sans";
+  font-family: 'Plus Jakarta Sans';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -63,14 +64,24 @@ export const ColumnBadge = styled(Badge)<{ color: string }>`
 `;
 
 export const ColumnTask = styled.div`
-  padding: 23px 16px;
-  background: ${({ theme }) => theme.colors.grayDark};
+  background-color: var(--header);
   box-shadow: 0px 4px 6px rgba(54, 78, 126, 0.101545);
   border-radius: 8px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    background-color: var(--hover-card);
+    transform: scale(1.02);
+  }
 `;
 
 export const TaskLabel = styled.p`
-  font-family: "Plus Jakarta Sans";
+  font-family: 'Plus Jakarta Sans';
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
@@ -79,7 +90,7 @@ export const TaskLabel = styled.p`
 `;
 
 export const SubTaskLabel = styled.p`
-  font-family: "Plus Jakarta Sans";
+  font-family: 'Plus Jakarta Sans';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;

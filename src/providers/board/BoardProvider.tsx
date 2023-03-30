@@ -5,202 +5,198 @@ import {
   useContext,
   useEffect,
   useReducer,
-} from "react";
-import { useMatch, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+} from 'react';
+import { useMatch, useNavigate } from 'react-router-dom';
 
-import { boards as boardsMock } from "./mockData";
-import { Board, Column } from "./types";
+import { boards as boardsMock } from './mockData';
+import { Board, CreateBoard, CreateColumn, CreateTask } from './types';
+import { noop } from 'lodash';
+import { BOARDS, COLUMN_ID, PAGE_OF_BOARD, TASK_ID } from '../../constants';
+import { reducer } from './reducer';
 
 type BoardContextState = {
   boards: Board[];
+  currentBoard?: Board;
 };
+
+type EditBoard = Board<true>;
+
+export type AddBoard = CreateBoard & { columns: CreateColumn[] };
+export type AddTask = CreateTask & {
+  boardId: string;
+  columnId: string;
+  subTasks: { label: string }[];
+};
+
+type EditTask = CreateTask & {
+  id: string;
+  boardId: string;
+  columnId: string;
+  subTasks: { id?: string; label: string }[];
+};
+
+type ChangeTaskStatus = {
+  taskId: string;
+  oldColumnId: string;
+  newColumnId: string;
+  boardId: string;
+};
+
+type DeleteTask = {
+  taskId: string;
+  columnId: string;
+  boardId: string;
+};
+
+type CheckSubtask = {
+  subtaskId: string;
+  taskId: string;
+  columnId: string;
+  boardId: string;
+};
+
 type BoardContextAction = {
-  handleAddBoard: ({ label }: { label: string; columns: Column[] }) => void;
-  handleEditBoard: ({
-    label,
-    boardId,
-    columns,
-  }: {
-    label: string;
-    boardId?: string;
-    columns?: Column[];
-  }) => void;
-  handleAddTask: ({
-    label,
-    description,
-    boardId,
-    status,
-    subTasks,
-  }: {
-    label: string;
-    description: string;
-    status: string;
-    subTasks: { label: string }[];
-    boardId: string | undefined;
-  }) => void;
+  handleAddBoard: (props: AddBoard) => void;
+  handleDeleteBoard: () => void;
+  handleEditBoard: (props: EditBoard) => void;
+  handleAddTask: (props: AddTask) => void;
+  handleEditTask: (props: EditTask) => void;
+  handleDeleteTask: (props: DeleteTask) => void;
+  handleChangeTaskStatus: (props: ChangeTaskStatus) => void;
+  handleCheckSubtask: (props: CheckSubtask) => void;
 };
 
 const BoardContext = createContext<[BoardContextState, BoardContextAction]>([
-  { boards: [] },
+  { boards: boardsMock, currentBoard: undefined },
   {
-    handleAddBoard: () => {},
-    handleEditBoard: () => {},
-    handleAddTask: () => {},
+    handleAddBoard: noop,
+    handleDeleteBoard: noop,
+    handleEditBoard: noop,
+    handleAddTask: noop,
+    handleEditTask: noop,
+    handleDeleteTask: noop,
+    handleChangeTaskStatus: noop,
+    handleCheckSubtask: noop,
   },
 ]);
 
-enum AddActionsReducerTypes {
-  AddBoard = "ADD_BOARD",
-  AddColumn = "ADD_COLUMN",
-  AddTask = "ADD_TASK",
+export enum AddActionsReducerTypes {
+  AddBoard = 'ADD_BOARD',
+  DeleteBoard = 'DELETE_BOARD',
+  EditBoard = 'EDIT_BOARD',
+  AddTask = 'ADD_TASK',
+  EditTask = 'EDIT_TASK',
+  DeleteTask = 'DELETE_TASK',
+  ChangeTaskStatus = 'CHANGE_TASK_STATUS',
+  CheckSubTask = 'CHECK_SUB_TASK',
 }
 
-type BoardActionsType = {
+export type BoardActionsType = {
   type: AddActionsReducerTypes;
-  id?: string;
-  label?: string;
-  columns?: Column[];
-  columnId?: string;
-  taskDescription?: string;
-  subTasks?: { label: string }[];
-};
-
-const reducer = (state: Board[], action: BoardActionsType): Board[] => {
-  const board = state.find((b) => b.id === action.id);
-  const filteredBoards = state.filter(
-    (prevBoard) => prevBoard.id !== board?.id
-  );
-  switch (action.type) {
-    case AddActionsReducerTypes.AddBoard:
-      const columns = action.columns?.length
-        ? action.columns.map((c) => ({
-            label: c.label,
-            id: uuidv4(),
-            task: [],
-          }))
-        : [];
-      const newBoard: Board = {
-        label: action.label,
-        id: uuidv4(),
-        columns,
-      };
-      return [...state, newBoard];
-    case AddActionsReducerTypes.AddColumn:
-      const boardWithNewColumn = {
-        ...board,
-        label: action.label,
-        columns: action.columns,
-      };
-
-      return [...filteredBoards, boardWithNewColumn];
-
-    case AddActionsReducerTypes.AddTask:
-      const column = board?.columns?.find(
-        (column) => column.id === action.columnId
-      );
-      const columnWithNewTask: Column = {
-        ...column,
-        task: [
-          ...(column?.task || []),
-          {
-            label: action.label,
-            id: uuidv4(),
-            description: action.taskDescription,
-            subTasks: action.subTasks,
-          },
-        ],
-      };
-
-      const filteredColumns = board?.columns?.filter(
-        (currColumn) => currColumn.id !== column?.id
-      );
-
-      const boardWithNewTask = {
-        ...board,
-        columns: [...(filteredColumns || []), columnWithNewTask],
-      };
-      return [...filteredBoards, boardWithNewTask];
-    default:
-      return state;
-  }
+  payload: {
+    addBoard?: AddBoard;
+    deleteBoard?: { id: string };
+    editBoard?: EditBoard;
+    addTask?: AddTask;
+    editTask?: EditTask;
+    deleteTask?: DeleteTask;
+    changeTaskStatus?: ChangeTaskStatus;
+    checkSubtask?: CheckSubtask;
+  };
 };
 
 export const BoardProvider = ({ children }: { children: ReactNode }) => {
-  const lsBoards: Board[] = JSON.parse(localStorage.getItem("boards") ?? "[]");
-  const navigate = useNavigate();
-  const match = useMatch("boards/:id");
-  const routerBoardId = match?.params.id;
-
   const [boards, dispatch] = useReducer<Reducer<Board[], BoardActionsType>>(
     reducer,
-    lsBoards.length ? lsBoards : boardsMock
+    boardsMock
   );
+
+  const navigate = useNavigate();
+  const routerBoardId = useMatch(PAGE_OF_BOARD)?.params.id;
+  const currentBoard = boards.find((b) => b.id === routerBoardId);
 
   useEffect(() => {
     if (!routerBoardId && boards.length) {
-      navigate(`boards/${boards[0].id}` || "");
+      navigate(`${BOARDS}/${boards[0].id}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    boards.length > 0 && localStorage.setItem("boards", JSON.stringify(boards));
-  }, [boards]);
-
-  const handleAddBoard = ({
-    label,
-    columns,
-  }: {
-    label: string;
-    columns: Column[];
-  }) => {
-    dispatch({ type: AddActionsReducerTypes.AddBoard, label, columns });
-  };
-
-  const handleEditBoard = ({
-    label,
-    boardId,
-    columns,
-  }: {
-    label: string;
-    boardId?: string;
-    columns?: Column[];
-  }) => {
+  const handleAddBoard = (addBoard: AddBoard) => {
     dispatch({
-      type: AddActionsReducerTypes.AddColumn,
-      id: boardId,
-      columns,
-      label,
+      type: AddActionsReducerTypes.AddBoard,
+      payload: { addBoard },
     });
   };
 
-  const handleAddTask = ({
-    label,
-    description,
-    boardId,
-    status,
-    subTasks,
-  }: {
-    label: string;
-    description: string;
-    status: string;
-    subTasks: { label: string }[];
-    boardId: string | undefined;
-  }) => {
+  const handleEditBoard = (editBoard: EditBoard) => {
+    dispatch({
+      type: AddActionsReducerTypes.EditBoard,
+      payload: { editBoard },
+    });
+  };
+
+  const handleDeleteBoard = () => {
+    dispatch({
+      type: AddActionsReducerTypes.DeleteBoard,
+      payload: { deleteBoard: { id: currentBoard?.id || '' } },
+    });
+  };
+
+  const handleAddTask = (addTask: AddTask) => {
     dispatch({
       type: AddActionsReducerTypes.AddTask,
-      label,
-      taskDescription: description,
-      id: boardId,
-      columnId: status,
-      subTasks,
+      payload: { addTask },
+    });
+  };
+
+  const handleEditTask = (editTask: EditTask) => {
+    dispatch({
+      type: AddActionsReducerTypes.EditTask,
+      payload: { editTask },
+    });
+  };
+
+  const handleDeleteTask = (deleteTask: DeleteTask) => {
+    dispatch({
+      type: AddActionsReducerTypes.DeleteTask,
+      payload: { deleteTask },
+    });
+  };
+
+  const handleChangeTaskStatus = (changeTaskStatus: ChangeTaskStatus) => {
+    dispatch({
+      type: AddActionsReducerTypes.ChangeTaskStatus,
+      payload: { changeTaskStatus },
+    });
+
+    navigate(
+      `${BOARDS}/${currentBoard?.id}?${TASK_ID}=${changeTaskStatus.taskId}&${COLUMN_ID}=${changeTaskStatus.newColumnId}`
+    );
+  };
+
+  const handleCheckSubtask = (checkSubtask: CheckSubtask) => {
+    dispatch({
+      type: AddActionsReducerTypes.CheckSubTask,
+      payload: { checkSubtask },
     });
   };
 
   return (
     <BoardContext.Provider
-      value={[{ boards }, { handleAddBoard, handleEditBoard, handleAddTask }]}
+      value={[
+        { boards, currentBoard },
+        {
+          handleAddBoard,
+          handleEditBoard,
+          handleDeleteBoard,
+          handleAddTask,
+          handleChangeTaskStatus,
+          handleCheckSubtask,
+          handleEditTask,
+          handleDeleteTask,
+        },
+      ]}
     >
       {children}
     </BoardContext.Provider>
