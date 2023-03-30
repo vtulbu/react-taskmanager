@@ -1,0 +1,26 @@
+:root {
+  color-scheme: light;
+
+  --black: #000112;
+  --very-dark-gray: #20212c;
+  --dark-grey: #2b2c37;
+  --lines-dark: #3e3f4e;
+  --medium-grey: #828fa3;
+  --lines-light: #e4ebfa;
+  --light-grey: #f4f7fd;
+  --white: #ffffff;
+  --main-purple: #635fc7;
+  --main-purple-hover: #a8a4ff;
+  --red: #ea5555;
+  --red-hover: #ff9898;
+
+  --header: var(--white);
+  --lines: var(--lines-light);
+  --background-theme: var(--light-grey);
+  --background-switcher: var(--light-grey);
+  --hover-item-boards: #828fa333;
+  --dialog-delete-edit-board: var(--white);
+  --button-text: #635fc71a;
+  --hover-card: var(--light-grey);
+  --text-color-theme: var(--black);
+}

@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.text-heading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 23px;
+  margin: 0;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #ea5555;
+}
+
+.container p {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #828fa3;
+  max-width: 300px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .container p {
+    max-width: 420px;
+  }
+
+  .buttons-container {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .buttons-container > button {
+    flex: 1;
+  }
+}

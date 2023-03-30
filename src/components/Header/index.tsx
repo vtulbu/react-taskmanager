@@ -1,48 +1,74 @@
-import { FC } from "react";
-import { useMatch } from "react-router-dom";
+import { FC, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { LogoSVG } from "../SVGs/LogoSvg";
+import { DotMenu } from '..';
+import { Button } from '../Button';
 
-import { DotMenu } from "..";
-import { Button } from "../Button";
-import { paths } from "../Sidebar/mockData";
-import * as S from "./styled";
-import { PlusSvg } from "../SVGs/PlusSvg";
-import { LogoIconSvg } from "../SVGs/LogoIconSvg";
-import { SidebarArrowSvg } from "../SVGs/SideBarArrowSvg";
-import { useSidebar } from "src/providers/sidebar/SidebarProvider";
+import { LogoSVG } from '../SVGs/LogoSvg';
+import { PlusSvg } from '../SVGs/PlusSvg';
+import { LogoIconSvg } from '../SVGs/LogoIconSvg';
+import { SidebarArrowSvg } from '../SVGs/SideBarArrowSvg';
+import { useSidebar } from 'src/providers/sidebar/SidebarProvider';
+import { useBoards } from 'src/providers/board/BoardProvider';
+
+import * as S from './styled';
+import { useDialog } from 'src/providers/dialog/DialogProvider';
+import { AddEditTask } from '../AddEditTask';
+import { BOARD, CREATE, DELETE, EDIT, TASK_ACTION } from 'src/constants';
+import { useRouterQueryListener } from 'src/providers/hooks';
+import { DeleteModal } from '../DeleteModal';
 
 export const Header: FC = () => {
+  const navigate = useNavigate();
+  const { taskAction } = useRouterQueryListener();
   const [, { handleSidebarState }] = useSidebar();
-  const match = useMatch("boards/:id");
-  const boardName = paths.find((path) => path.id === match?.params.id)?.label;
+  const [, { openDialog }] = useDialog();
+  const [{ currentBoard }] = useBoards();
+  const isCreatingTask = taskAction === CREATE;
+  const isEditingTask = taskAction === EDIT;
+  const isDeletingTask = taskAction === DELETE;
+
+  useEffect(() => {
+    if (isCreatingTask || isEditingTask) {
+      openDialog({
+        body: <AddEditTask />,
+        size: 'medium',
+        title: isEditingTask ? 'Edit Task' : 'Add New Task',
+      });
+    }
+
+    if (isDeletingTask) {
+      openDialog({
+        body: <DeleteModal />,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCreatingTask, isEditingTask, isDeletingTask]);
 
   return (
     <S.HeaderContainer>
-      <S.LogoContainer>
-        {window.innerWidth <= 768 ? <LogoIconSvg /> : <LogoSVG />}
-      </S.LogoContainer>
-      {window.innerWidth >= 769 && <S.Divider />}
+      {window.innerWidth <= 768 ? <LogoIconSvg /> : <LogoSVG />}
+      {/* {window.innerWidth >= 769 && <S.Divider />} */}
       <S.HeaderTitleAndActions>
         <S.HeaderTitle
           onClick={() => {
             window.innerWidth <= 768 && handleSidebarState();
           }}
         >
-          <h2>{boardName}</h2>
+          {currentBoard && <S.BoardName>{currentBoard.label}</S.BoardName>}
           {window.innerWidth <= 768 && <SidebarArrowSvg />}
         </S.HeaderTitle>
 
         <S.HeaderActions>
           <Button
-            disabled
-            label={window.innerWidth > 768 ? "+ Add New Task" : undefined}
+            onClick={() => navigate(`?${TASK_ACTION}=${CREATE}`)}
+            label={window.innerWidth > 768 ? '+ Add New Task' : undefined}
             {...(window.innerWidth <= 768 && {
               icon: <PlusSvg />,
-              padding: "10px 18px",
             })}
+            disabled={!currentBoard?.columns.length}
           />
-          <DotMenu buttonVariant={{ text: true }} />
+          <DotMenu forItem={BOARD} />
         </S.HeaderActions>
       </S.HeaderTitleAndActions>
     </S.HeaderContainer>

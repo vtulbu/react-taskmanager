@@ -1,13 +1,13 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const ThemeSwitcherContainer = styled.div`
   background-color: ${({ theme }) =>
-    theme.mode === "dark"
+    theme.mode === 'dark'
       ? theme.colors.veryDarkGray
       : theme.colors.almostWhite};
   display: flex;
   gap: 24px;
-  width: 86%;
+  margin: 0 16px;
   height: 48px;
   align-items: center;
   justify-content: center;

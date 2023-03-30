@@ -1,0 +1,70 @@
+.heading-modal h2 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 23px;
+  letter-spacing: 0px;
+  text-align: left;
+  margin: 0;
+  color: var(--text-color-theme);
+}
+
+.description {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: var(--medium-grey);
+  max-width: 420px;
+  min-width: 340px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* padding: 24px; */
+}
+
+.heading-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subtask-status {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
+  color: var(--text-color-theme);
+}
+
+.subtasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subtask {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 8px;
+  background-color: var(--background-theme);
+  border-radius: 4px;
+}
+
+.label-subtask {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
+  color: var(--text-color-theme);
+}
+
+.checked {
+  text-decoration: line-through;
+  color: var(--medium-grey);
+}
+
+@media (min-width: 768px) {
+}

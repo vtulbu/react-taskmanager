@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { InputTextProps } from "primereact/inputtext";
+import { InputTextareaProps } from "primereact/inputtextarea";
 
 import * as S from "./styled";
 
@@ -9,7 +9,9 @@ type CustomTextFieldProps = {
   helperText?: string;
 };
 
-export const TextField: FC<InputTextProps & CustomTextFieldProps> = (props) => {
+export const TextFieldArea: FC<InputTextareaProps & CustomTextFieldProps> = (
+  props
+) => {
   return (
     <S.TextFieldContainer>
       {props.label && <S.TextFieldLabel>{props.label}</S.TextFieldLabel>}

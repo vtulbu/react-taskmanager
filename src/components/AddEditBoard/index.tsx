@@ -1,0 +1,112 @@
+import { FC, useEffect, useState } from 'react';
+import { AddBoard, useBoards } from 'src/providers/board/BoardProvider';
+import { useDialog } from 'src/providers/dialog/DialogProvider';
+import { Button } from '../Button';
+import { CloseSvg } from '../SVGs/CloseSvg';
+import { TextField } from '../TextField';
+import * as S from './styled';
+import { useRouterQueryListener } from 'src/providers/hooks';
+import { EDIT } from 'src/constants';
+
+export const AddEditBoard: FC = () => {
+  const { boardAction } = useRouterQueryListener();
+  const isEditing = boardAction === EDIT;
+  const [, { closeDialog }] = useDialog();
+
+  const [{ currentBoard }, { handleAddBoard, handleEditBoard }] = useBoards();
+
+  const [boardForm, setBoardForm] = useState<AddBoard>({
+    label: '',
+    columns: [],
+  });
+
+  useEffect(() => {
+    if (isEditing) {
+      setBoardForm({
+        label: currentBoard?.label || '',
+        columns: currentBoard?.columns || [],
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEditing]);
+
+  return (
+    <S.NewBoardContainer>
+      <TextField
+        label='Board Name'
+        placeholder='e.g. Web Design'
+        onChange={(e) => setBoardForm({ ...boardForm, label: e.target.value })}
+        value={boardForm.label}
+      />
+      <S.DissmissableContainer>
+        {boardForm.columns.map((column, idx) => {
+          return (
+            <S.DissmissableTextField key={idx}>
+              <TextField
+                {...(idx === 0 && {
+                  label: 'Board Columns',
+                })}
+                value={boardForm.columns[idx].label}
+                onChange={(e) => {
+                  setBoardForm((prevValue) => {
+                    return {
+                      ...prevValue,
+                      columns: prevValue.columns.map((column, index) => {
+                        return index === idx
+                          ? { ...column, label: e.target.value }
+                          : column;
+                      }),
+                    };
+                  });
+                }}
+              />
+              <Button
+                icon={<CloseSvg />}
+                onClick={() => {
+                  setBoardForm((prevValue) => {
+                    return {
+                      ...prevValue,
+                      columns: prevValue.columns.filter(
+                        (_column, index) => index !== idx
+                      ),
+                    };
+                  });
+                }}
+                style={{
+                  ...(idx === 0 && { marginTop: '24px' }),
+                  backgroundColor: 'transparent',
+                  boxShadow: 'none',
+                  height: 'fit-content',
+                }}
+              />
+            </S.DissmissableTextField>
+          );
+        })}
+      </S.DissmissableContainer>
+      <Button
+        color='secondary'
+        label='+ Add New Column'
+        onClick={() => {
+          setBoardForm((prevValue) => {
+            return {
+              ...prevValue,
+              columns: [...prevValue.columns, { label: '' }],
+            };
+          });
+        }}
+      />
+      <Button
+        label={isEditing ? 'Save Changes' : 'Create New Board'}
+        onClick={() => {
+          isEditing
+            ? handleEditBoard({
+                ...boardForm,
+                id: currentBoard?.id || '',
+              })
+            : handleAddBoard(boardForm);
+          closeDialog();
+        }}
+      />
+    </S.NewBoardContainer>
+  );
+};

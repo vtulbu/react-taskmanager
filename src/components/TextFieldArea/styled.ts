@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { rgba } from "polished";
-import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 
 export const TextFieldContainer = styled.div`
   display: flex;
@@ -10,9 +10,9 @@ export const TextFieldContainer = styled.div`
   position: relative;
 `;
 
-export const TextField = styled(InputText)<{ error?: boolean }>`
+export const TextField = styled(InputTextarea)<{ error?: boolean }>`
   && {
-    height: 40px;
+    height: 112px;
     font-family: "Plus Jakarta Sans";
     font-weight: 500;
     font-size: 13px;
