@@ -1,8 +1,7 @@
-import { ReactNode, createContext, useContext, useMemo, useState } from "react";
-import { Dialog } from "src/components";
-import { MenuBody } from "src/components/MenuBody";
-import { Sidebar } from "src/components/Sidebar";
-import { useResizeDetector } from "react-resize-detector";
+import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
+import { Dialog } from 'src/components';
+import { MenuBody } from 'src/components/MenuBody';
+import { Sidebar } from 'src/components/Sidebar';
 
 type SidebarContextTypes = [
   { isSidebarOpen: boolean },
@@ -18,7 +17,6 @@ export const SidebarContext = createContext<SidebarContextTypes>([
 
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
   const [visible, setVisible] = useState(false);
-  const { width, ref } = useResizeDetector();
 
   const returnValues: SidebarContextTypes = useMemo(() => {
     const handleSidebarState = () => {
@@ -30,17 +28,17 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <SidebarContext.Provider value={returnValues}>
-      <div ref={ref}>
-        {width && width > 768 ? (
+      <div>
+        {window.innerWidth > 768 ? (
           <Sidebar visible={visible} onHide={() => setVisible(false)}>
             <MenuBody />
           </Sidebar>
         ) : (
           <Dialog
             isMenu
-            size="small"
+            size='small'
             visible={visible}
-            position="top"
+            position='top'
             onHide={() => setVisible(false)}
           >
             <MenuBody />
