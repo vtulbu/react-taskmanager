@@ -1,4 +1,3 @@
-import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.min.css';
 
 import { AppContent, Layout } from './components';
