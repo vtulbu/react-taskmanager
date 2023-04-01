@@ -1,0 +1,128 @@
+.menuContent {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .menuContent {
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.hide-sidebar {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  color: var(--medium-grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 6px;
+  border-radius: var(--global-border-radius);
+  margin: 20px 18px 0;
+}
+
+.hide-sidebar:hover {
+  cursor: pointer;
+  background-color: var(--hover-item-boards);
+}
+
+.boardsLabel {
+  font-family: "Plus Jakarta Sans";
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 2.4px;
+  color: var(--medium-grey);
+  margin: 0px 0 19px 24px;
+}
+
+@media (min-width: 768px) {
+  .boardsLabel {
+    margin: 32px 0 19px 24px;
+  }
+}
+
+.navLinks {
+  display: grid;
+  width: 100%;
+}
+
+.navLink {
+  height: 48px;
+  border-radius: 0 100px 100px 0;
+  display: flex;
+  width: calc(100% - 24px);
+  padding-left: 24px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--medium-grey);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  gap: 12px;
+}
+
+.navLink:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .navLink {
+    gap: 16px;
+  }
+}
+
+.sidebarActionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.createBoardButton {
+  cursor: pointer;
+  padding-left: 24px;
+  background-color: transparent;
+  border: none;
+  height: 48px;
+  border-radius: 0 100px 100px 0;
+  display: flex;
+  width: calc(100% - 24px);
+  padding-left: 24px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  gap: 12px;
+}
+
+.createBoardButton .active {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+
+@media (min-width: 768px) {
+  .createBoardButton {
+    gap: 16px;
+  }
+}
+
+.createBoardButton:hover {
+  background-color: var(--hover-item-boards);
+}

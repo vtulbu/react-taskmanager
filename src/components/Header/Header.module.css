@@ -1,0 +1,126 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  transition: background-color 0.2s;
+  position: relative;
+  border-bottom: 1px solid var(--lines);
+  z-index: 1200;
+  transition: padding 0.2s;
+}
+
+.headerDark {
+  background-color: var(--dark-grey);
+}
+
+.headerLight {
+  background-color: var(--white);
+}
+
+@media (min-width: 768px) {
+  .headerContainer {
+    padding: 16px 24px;
+    z-index: 1;
+  }
+}
+
+.zIndex {
+  z-index: 1200;
+}
+
+@media (min-width: 1440px) {
+  .headerContainer {
+    padding: 20px 32px 28px 24px;
+  }
+}
+
+.divider {
+  width: 1px;
+  background-color: var(--lines);
+  position: absolute;
+  left: 160px;
+  top: 0;
+  height: 100%;
+  display: none;
+  transition: left 0.2s;
+}
+
+@media (min-width: 768px) {
+  .divider {
+    left: 259px;
+    display: block;
+  }
+}
+
+@media (min-width: 1440px) {
+  .divider {
+    left: 299px;
+  }
+}
+
+.headerTitleAndActions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 16px;
+  transition: padding-left 0.2s;
+}
+
+@media (min-width: 768px) {
+  .headerTitleAndActions {
+    padding-left: 105px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .headerTitleAndActions {
+    padding-left: 152px;
+  }
+}
+
+.headerTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+  height: 24px;
+  width: fit-content;
+}
+
+@media (min-width: 768px) {
+  .headerTitle {
+    cursor: pointer;
+    height: inherit;
+    width: inherit;
+  }
+}
+
+.headerActions {
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  gap: 32px;
+}
+
+.boardName {
+  font-family: "Plus Jakarta Sans";
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.addTaskButton {
+  max-height: 34px;
+  height: 34px;
+}
+
+@media (min-width: 768px) {
+  .addTaskButton {
+    padding: 15px 25px;
+    width: 151px;
+    display: flex;
+    max-height: inherit;
+    height: inherit;
+  }
+}

@@ -36,7 +36,8 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
         ) : (
           <Dialog
             isMenu
-            size='small'
+            size="small"
+            style={{ width: "234px" }}
             visible={visible}
             position='top'
             onHide={() => setVisible(false)}

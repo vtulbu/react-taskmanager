@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { InputTextareaProps } from "primereact/inputtextarea";
+import { InputTextareaProps, InputTextarea } from "primereact/inputtextarea";
 
-import * as S from "./styled";
+import s from "./TextFieldArea.module.css";
 
 type CustomTextFieldProps = {
   label?: string;
@@ -13,12 +13,14 @@ export const TextFieldArea: FC<InputTextareaProps & CustomTextFieldProps> = (
   props
 ) => {
   return (
-    <S.TextFieldContainer>
-      {props.label && <S.TextFieldLabel>{props.label}</S.TextFieldLabel>}
-      <S.TextField {...props} />
+    <div className={s.textFieldContainer}>
+      {props.label && <label className={s.textFieldLabel}>{props.label}</label>}
+      <InputTextarea {...props} className={s.textField} />
       {props.helperText && (
-        <S.HelperText error={props.error}>{props.helperText}</S.HelperText>
+        <p className={`${s.helperText} ${props.error && s.error}`}>
+          {props.helperText}
+        </p>
       )}
-    </S.TextFieldContainer>
+    </div>
   );
 };

@@ -1,0 +1,18 @@
+.dropdownContainer {
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  justify-content: space-between;
+  position: relative;
+}
+
+.dropdownLabel {
+  font-family: "Plus Jakarta Sans";
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.dropdownLabelDark {
+  color: var(--medium-grey);
+}

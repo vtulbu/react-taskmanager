@@ -1,0 +1,15 @@
+.themeSwitcher {
+  background-color: var(--background-theme);
+  display: flex;
+  gap: 24px;
+  margin: 0 16px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.inputSwitch {
+  height: 20px;
+  width: 40px;
+}

@@ -1,0 +1,33 @@
+.newBoardContainer {
+  padding-top: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .newBoardContainer {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .newBoardContainer {
+    padding: 32px;
+  }
+}
+
+.dissmissableContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dissmissableTextfield {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}

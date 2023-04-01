@@ -1,15 +1,16 @@
-import { useBoards } from 'src/providers/board/BoardProvider';
-import { useDialog } from 'src/providers/dialog/DialogProvider';
+import { useBoards } from "src/providers/board/BoardProvider";
+import { useDialog } from "src/providers/dialog/DialogProvider";
 
-import { Button } from '../Button';
-import * as S from './styled';
-import { AddEditBoard } from '../AddEditBoard';
-import { useNavigate } from 'react-router-dom';
-import { useRouterQueryListener } from 'src/providers/hooks';
-import { useEffect } from 'react';
-import { BOARD_ACTION, COLUMN_ID, DELETE, EDIT, TASK_ID } from 'src/constants';
-import { ViewTask } from '../ViewTask';
-import { DeleteModal } from '../DeleteModal';
+import { Button } from "../Button";
+import { AddEditBoard } from "../AddEditBoard";
+import { useNavigate } from "react-router-dom";
+import { useRouterQueryListener } from "src/providers/hooks";
+import { useEffect } from "react";
+import { BOARD_ACTION, COLUMN_ID, DELETE, EDIT, TASK_ID } from "src/constants";
+import { ViewTask } from "../ViewTask";
+import { DeleteModal } from "../DeleteModal";
+
+import s from "./Board.module.css";
 
 export const Board = () => {
   const navigate = useNavigate();
@@ -23,8 +24,8 @@ export const Board = () => {
     if (isEditingBoard) {
       openDialog({
         body: <AddEditBoard />,
-        size: window.innerWidth < 768 ? 'small' : 'medium',
-        title: 'Edit Board',
+        size: window.innerWidth < 768 ? "small" : "medium",
+        title: "Edit Board",
       });
     }
 
@@ -44,42 +45,50 @@ export const Board = () => {
     }
   }, [taskId]);
 
+  const isBoardEmpty = !Boolean(currentBoard?.columns?.length);
+
+  {
+    /* <S.ColumnBadge color={generateColor()} /> {column.label} */
+  }
+
   return (
-    <S.BoardContainer empty={!Boolean(currentBoard?.columns?.length)}>
+    <div
+      className={`${s.boardContainer} ${isBoardEmpty && s.emptyBoardContainer}`}
+    >
       {currentBoard?.columns?.map((column) => (
-        <S.BoardColumn key={column.id}>
-          <S.BoardColumnLabel>
-            {column.label}
-            {/* <S.ColumnBadge color={generateColor()} /> {column.label} */}
-          </S.BoardColumnLabel>
+        <div className={s.boardColumn} key={column.id}>
+          <div className={s.boardColumnLabel}>
+            {column.label} ({column.task.length})
+          </div>
           {column.task?.map((task) => {
             return (
-              <S.ColumnTask
+              <div
+                className={s.columnTask}
                 key={task.id}
                 onClick={() =>
                   navigate(`?${TASK_ID}=${task.id}&${COLUMN_ID}=${column.id}`)
                 }
               >
-                <S.TaskLabel>{task.label}</S.TaskLabel>
-                <S.SubTaskLabel>
+                <div className={s.taskLabel}>{task.label}</div>
+                <div className={s.subTaskLabel}>
                   0 of {task.subTasks?.length} subtasks
-                </S.SubTaskLabel>
-              </S.ColumnTask>
+                </div>
+              </div>
             );
           })}
-        </S.BoardColumn>
+        </div>
       ))}
       {!currentBoard?.columns?.length && (
         <>
-          <S.EmptyBoardLabel>
+          <div className={s.emptyBoardLabel}>
             This board is empty. Create a new column to get started.
-          </S.EmptyBoardLabel>
+          </div>
           <Button
             onClick={() => navigate(`?${BOARD_ACTION}=${EDIT}`)}
-            label='+ Add New Column'
+            label="+ Add New Column"
           />
         </>
       )}
-    </S.BoardContainer>
+    </div>
   );
 };
