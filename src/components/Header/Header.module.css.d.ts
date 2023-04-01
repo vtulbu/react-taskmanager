@@ -9,6 +9,8 @@ declare const styles: {
   readonly "headerActions": string;
   readonly "boardName": string;
   readonly "addTaskButton": string;
+  readonly "svgLogoLarge": string;
+  readonly "svgLogoSmall": string;
 };
 export = styles;
 

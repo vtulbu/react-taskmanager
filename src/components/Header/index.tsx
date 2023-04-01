@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useResizeDetector } from "react-resize-detector";
 
 import { DotMenu } from "..";
 
@@ -21,6 +22,7 @@ import { useThemeProvider } from "src/providers/theme/ThemeProvider";
 import { Button } from "primereact/button";
 
 export const Header: FC = () => {
+  const { width, ref } = useResizeDetector();
   const { themeMode } = useThemeProvider();
   const navigate = useNavigate();
   const { taskAction } = useRouterQueryListener();
@@ -50,25 +52,27 @@ export const Header: FC = () => {
 
   return (
     <header
+      ref={ref}
       className={`${s.headerContainer} ${
         themeMode === "dark" ? s.headerDark : s.headerLight
       } ${isDialogOpen && s.zIndex}`}
     >
-      <div className="svg-logo">
-        {window.innerWidth < 768 ? <LogoIconSvg /> : <LogoSVG />}
+      <div className={s.svgLogoLarge}>
+        <LogoSVG />
       </div>
+      <div className={s.svgLogoSmall}>{<LogoIconSvg />}</div>
       <div className={s.divider} />
       <div className={s.headerTitleAndActions}>
         <div
           className={s.headerTitle}
           onClick={() => {
-            window.innerWidth <= 768 && handleSidebarState();
+            width && width <= 768 && handleSidebarState();
           }}
         >
           {currentBoard && (
             <h2 className={s.boardName}>{currentBoard.label}</h2>
           )}
-          {window.innerWidth <= 768 && <SidebarArrowSvg />}
+          {width && width <= 768 && <SidebarArrowSvg />}
         </div>
 
         <div className={s.headerActions}>

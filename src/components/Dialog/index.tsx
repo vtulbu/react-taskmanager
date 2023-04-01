@@ -17,7 +17,9 @@ export const Dialog = (props: DialogProps & CustomDialogProps) => {
 
   return (
     <PrimeDialog {...props} className={classes} showHeader={false}>
-      <h2 className={s.titleText}>{props.title}</h2>
+      <h2 className={`${s.titleText} ${props.isMenu && s.isMenu}`}>
+        {props.title}
+      </h2>
       {props.children}
     </PrimeDialog>
   );

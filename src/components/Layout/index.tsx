@@ -1,3 +1,4 @@
+import { useResizeDetector } from "react-resize-detector";
 import { useThemeProvider } from "src/providers/theme/ThemeProvider";
 import { ReactNode } from "react";
 import { useSidebar } from "src/providers/sidebar/SidebarProvider";
@@ -8,6 +9,7 @@ import { EyeOpen } from "../SVGs/EyeOpen";
 import s from "./Layout.module.css";
 
 export const Layout = ({ children }: { children: ReactNode }) => {
+  const { width, ref } = useResizeDetector();
   const [{ isSidebarOpen }, { handleSidebarState }] = useSidebar();
   const { themeMode } = useThemeProvider();
 
@@ -18,11 +20,11 @@ export const Layout = ({ children }: { children: ReactNode }) => {
   }`;
 
   return (
-    <div className={s.layoutContainer}>
+    <div ref={ref} className={s.layoutContainer}>
       <Header />
       <div className={contentClassNames}>
         {children}
-        {window.innerWidth > 768 && (
+        {width && width > 768 && (
           <div className={s.sidebarButton}>
             <Button
               style={{

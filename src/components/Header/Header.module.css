@@ -16,22 +16,8 @@
 .headerLight {
   background-color: var(--white);
 }
-
-@media (min-width: 768px) {
-  .headerContainer {
-    padding: 16px 24px;
-    z-index: 1;
-  }
-}
-
 .zIndex {
   z-index: 1200;
-}
-
-@media (min-width: 1440px) {
-  .headerContainer {
-    padding: 20px 32px 28px 24px;
-  }
 }
 
 .divider {
@@ -45,19 +31,6 @@
   transition: left 0.2s;
 }
 
-@media (min-width: 768px) {
-  .divider {
-    left: 259px;
-    display: block;
-  }
-}
-
-@media (min-width: 1440px) {
-  .divider {
-    left: 299px;
-  }
-}
-
 .headerTitleAndActions {
   width: 100%;
   display: flex;
@@ -65,18 +38,6 @@
   align-items: center;
   padding-left: 16px;
   transition: padding-left 0.2s;
-}
-
-@media (min-width: 768px) {
-  .headerTitleAndActions {
-    padding-left: 105px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .headerTitleAndActions {
-    padding-left: 152px;
-  }
 }
 
 .headerTitle {
@@ -89,19 +50,11 @@
   width: fit-content;
 }
 
-@media (min-width: 768px) {
-  .headerTitle {
-    cursor: pointer;
-    height: inherit;
-    width: inherit;
-  }
-}
-
 .headerActions {
   display: flex;
   height: fit-content;
   align-items: center;
-  gap: 32px;
+  gap: 16px;
 }
 
 .boardName {
@@ -115,12 +68,77 @@
   height: 34px;
 }
 
+.svgLogoLarge {
+  display: none;
+}
+.svgLogoSmall {
+  display: block;
+}
+
 @media (min-width: 768px) {
+  .headerContainer {
+    padding: 16px 24px;
+    z-index: 1;
+  }
+
   .addTaskButton {
     padding: 15px 25px;
     width: 151px;
     display: flex;
     max-height: inherit;
     height: inherit;
+  }
+
+  .svgLogoLarge {
+    display: block;
+  }
+
+  .svgLogoSmall {
+    display: none;
+  }
+
+  .divider {
+    left: 259px;
+    display: block;
+  }
+
+  .headerTitle {
+    cursor: pointer;
+    height: inherit;
+    width: inherit;
+  }
+
+  .headerTitleAndActions {
+    padding-left: 105px;
+  }
+
+  .headerActions {
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .headerContainer {
+    padding: 20px 32px 28px 24px;
+  }
+
+  .divider {
+    left: 299px;
+  }
+
+  .headerTitleAndActions {
+    padding-left: 152px;
+  }
+
+  .svgLogoLarge {
+    display: block;
+  }
+
+  .svgLogoSmall {
+    display: none;
+  }
+
+  .headerActions {
+    gap: 32px;
   }
 }
