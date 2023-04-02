@@ -1,17 +1,18 @@
-import { useBoards } from 'src/providers/board/BoardProvider';
-import { useDialog } from 'src/providers/dialog/DialogProvider';
-import { useSidebar } from 'src/providers/sidebar/SidebarProvider';
-import { Button } from '../Button';
-import { AddEditBoard } from '../AddEditBoard';
-import { paths } from '../Sidebar/mockData';
-import { BoardLinkSvg } from '../SVGs/BoardLinkSvg';
-import { EyeClosedSvg } from '../SVGs/EyeClosedSvg';
-import { ThemeSwitcher } from '../ThemeSwitcher';
-import * as S from './styled';
-import { useRouterQueryListener } from 'src/providers/hooks';
-import { BOARDS, BOARD_ACTION, CREATE } from 'src/constants';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useBoards } from "src/providers/board/BoardProvider";
+import { useDialog } from "src/providers/dialog/DialogProvider";
+import { useSidebar } from "src/providers/sidebar/SidebarProvider";
+import { AddEditBoard } from "../AddEditBoard";
+import { paths } from "../Sidebar/mockData";
+import { BoardLinkSvg } from "../SVGs/BoardLinkSvg";
+import { EyeClosedSvg } from "../SVGs/EyeClosedSvg";
+import { ThemeSwitcher } from "../ThemeSwitcher";
+import { useRouterQueryListener } from "src/providers/hooks";
+import { BOARDS, BOARD_ACTION, CREATE } from "src/constants";
+import { NavLinkProps, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { NavLink as RouterNavLink } from "react-router-dom";
+
+import s from "./MenuBody.module.css";
 
 export const MenuBody = () => {
   const navigate = useNavigate();
@@ -25,44 +26,61 @@ export const MenuBody = () => {
     if (isCreating) {
       openDialog({
         body: <AddEditBoard />,
-        size: window.innerWidth < 768 ? 'small' : 'medium',
-        title: 'Add New Board',
+        size: window.innerWidth < 768 ? "small" : "medium",
+        title: "Add New Board",
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCreating]);
 
+  const navLinkStyle: NavLinkProps["style"] = ({ isActive }) => {
+    return {
+      color: isActive ? "#fff" : "var(--medium-grey)",
+      ...(isActive && { backgroundColor: "var(--primary-color)" }),
+    };
+  };
+
   return (
-    <S.MenuContent>
+    <div className={s.menuContent}>
       <div>
-        <S.BoardsLabel>ALL BOARDS ({paths.length})</S.BoardsLabel>
-        <S.NavLinks>
+        <div className={s.boardsLabel}>ALL BOARDS ({boards.length})</div>
+        <div className={s.navLinks}>
           {boards.map((p) => (
-            <S.NavLink key={p.id} to={`/${BOARDS}/${p.id}`}>
-              <BoardLinkSvg /> {p.label}
-            </S.NavLink>
+            <RouterNavLink
+              style={navLinkStyle}
+              className={`${s.navLink}`}
+              key={p.id}
+              to={`/${BOARDS}/${p.id}`}
+            >
+              {({ isActive }) => (
+                <>
+                  <BoardLinkSvg color={isActive ? "#fff" : "#828fa3"} />
+                  {p.label}
+                </>
+              )}
+            </RouterNavLink>
           ))}
-          <S.CreateBoardButton
+          <button
             onClick={() => {
               handleSidebarState();
               navigate(`?${BOARD_ACTION}=${CREATE}`);
             }}
-            className='as-button'
+            className={s.createBoardButton}
           >
-            <BoardLinkSvg />
+            <BoardLinkSvg color="#828fa3" />
             <p>+ Create New Board</p>
-          </S.CreateBoardButton>
-        </S.NavLinks>
+          </button>
+        </div>
       </div>
-      <S.SidebarActionContainer>
+      <div className={s.sidebarActionContainer}>
         <ThemeSwitcher />
         {window.innerWidth >= 768 && (
-          <button onClick={handleSidebarState} className='hide-sidebar'>
+          <button onClick={handleSidebarState} className={s["hide-sidebar"]}>
             <EyeClosedSvg />
             Hide Sidebar
           </button>
         )}
-      </S.SidebarActionContainer>
-    </S.MenuContent>
+      </div>
+    </div>
   );
 };

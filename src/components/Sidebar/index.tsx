@@ -1,18 +1,25 @@
-import { SidebarProps } from "primereact/sidebar";
+import { useThemeProvider } from "src/providers/theme/ThemeProvider";
+import { SidebarProps, Sidebar as PrimeSidebar } from "primereact/sidebar";
+import { useSidebar } from "src/providers/sidebar/SidebarProvider";
 
-import * as S from "./styled";
+import s from "./Sidebar.module.css";
 
 export const Sidebar = (props: SidebarProps) => {
+  const { themeMode } = useThemeProvider();
+  const [{ isSidebarOpen }] = useSidebar();
+
   return (
-    <S.Sidebar
+    <PrimeSidebar
       {...props}
       maskStyle={{ position: "absolute" }}
       modal={false}
       dismissable={false}
-      style={window.innerWidth > 768 ? { position: "absolute" } : undefined}
       showCloseIcon={false}
+      className={`${s.sidebar} ${themeMode === "dark" && s.sidebarDark} ${
+        isSidebarOpen && s.sidebarTest
+      }`}
     >
       {props.children}
-    </S.Sidebar>
+    </PrimeSidebar>
   );
 };

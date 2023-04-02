@@ -1,7 +1,10 @@
 import { CheckboxProps } from "primereact/checkbox";
 import { FC, useState } from "react";
 import { CheckedSvg } from "../SVGs/CheckedSvg";
-import * as S from "./styled";
+
+import s from "./Checkbox.module.css";
+import { Checkbox as PrimeCheckbox } from "primereact/checkbox";
+import { useThemeProvider } from "src/providers/theme/ThemeProvider";
 
 export const Checkbox: FC<
   Omit<CheckboxProps, "checked"> & {
@@ -13,20 +16,36 @@ export const Checkbox: FC<
   }
 > = (props) => {
   const [checked, setChecked] = useState<boolean | undefined>(props.checked);
+  const { themeMode } = useThemeProvider();
+
+  const isChecked = Boolean(checked);
 
   return (
-    <S.CheckboxContainer>
-      <S.Checkbox
+    <div
+      className={`${
+        themeMode === "dark"
+          ? s.checkboxContainerDark
+          : s.checkboxContainerLight
+      } ${s.checkboxContainer}`}
+    >
+      <PrimeCheckbox
         icon={CheckedSvg}
         value={props.value}
         name={props.name}
         inputId={props.inputId}
-        checked={Boolean(checked)}
+        checked={isChecked}
         onChange={(e) => setChecked(e.checked)}
       />
-      <S.CheckboxLabel checked={Boolean(checked)} htmlFor={props.inputId}>
+      <label
+        className={`${s.checkboxLabel} ${
+          themeMode === "dark"
+            ? s.checkboxLabelCheckedDark
+            : s.checkboxLabelCheckedLight
+        }`}
+        htmlFor={props.inputId}
+      >
         {props.label || "This is label"}
-      </S.CheckboxLabel>
-    </S.CheckboxContainer>
+      </label>
+    </div>
   );
 };

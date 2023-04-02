@@ -1,0 +1,144 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  transition: background-color 0.2s;
+  position: relative;
+  border-bottom: 1px solid var(--lines);
+  z-index: 1200;
+  transition: padding 0.2s;
+}
+
+.headerDark {
+  background-color: var(--dark-grey);
+}
+
+.headerLight {
+  background-color: var(--white);
+}
+.zIndex {
+  z-index: 1200;
+}
+
+.divider {
+  width: 1px;
+  background-color: var(--lines);
+  position: absolute;
+  left: 160px;
+  top: 0;
+  height: 100%;
+  display: none;
+  transition: left 0.2s;
+}
+
+.headerTitleAndActions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 16px;
+  transition: padding-left 0.2s;
+}
+
+.headerTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+  height: 24px;
+  width: fit-content;
+}
+
+.headerActions {
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  gap: 16px;
+}
+
+.boardName {
+  font-family: "Plus Jakarta Sans";
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.addTaskButton {
+  max-height: 34px;
+  height: 34px;
+}
+
+.svgLogoLarge {
+  display: none;
+}
+.svgLogoSmall {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .headerContainer {
+    padding: 16px 24px;
+    z-index: 1;
+  }
+
+  .addTaskButton {
+    padding: 15px 25px;
+    width: 151px;
+    display: flex;
+    max-height: inherit;
+    height: inherit;
+  }
+
+  .svgLogoLarge {
+    display: block;
+  }
+
+  .svgLogoSmall {
+    display: none;
+  }
+
+  .divider {
+    left: 259px;
+    display: block;
+  }
+
+  .headerTitle {
+    cursor: pointer;
+    height: inherit;
+    width: inherit;
+  }
+
+  .headerTitleAndActions {
+    padding-left: 105px;
+  }
+
+  .headerActions {
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .headerContainer {
+    padding: 20px 32px 28px 24px;
+  }
+
+  .divider {
+    left: 299px;
+  }
+
+  .headerTitleAndActions {
+    padding-left: 152px;
+  }
+
+  .svgLogoLarge {
+    display: block;
+  }
+
+  .svgLogoSmall {
+    display: none;
+  }
+
+  .headerActions {
+    gap: 32px;
+  }
+}

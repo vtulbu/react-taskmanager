@@ -1,6 +1,7 @@
-import { DialogProps } from "primereact/dialog";
+import { DialogProps, Dialog as PrimeDialog } from "primereact/dialog";
+import { useThemeProvider } from "src/providers/theme/ThemeProvider";
 
-import * as S from "./styled";
+import s from "./Dialog.module.css";
 
 type CustomDialogProps = {
   size?: "small" | "medium";
@@ -9,10 +10,17 @@ type CustomDialogProps = {
 };
 
 export const Dialog = (props: DialogProps & CustomDialogProps) => {
+  const { themeMode } = useThemeProvider();
+  const classes = `${s.dialog} ${props.isMenu ? s.isMenu : ""} ${
+    themeMode === "dark" ? s.dark : s.light
+  }`;
+
   return (
-    <S.Dialog {...props} showHeader={false}>
-      <S.TitleText>{props.title}</S.TitleText>
+    <PrimeDialog {...props} className={classes} showHeader={false}>
+      <h2 className={`${s.titleText} ${props.isMenu && s.isMenu}`}>
+        {props.title}
+      </h2>
       {props.children}
-    </S.Dialog>
+    </PrimeDialog>
   );
 };

@@ -1,0 +1,23 @@
+.p-button-primary-light {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.p-button-secondary-light {
+  background-color: var(--primary-color + "19");
+  color: #fff;
+}
+
+.p-button-primary-dark {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.p-button-secondary-dark {
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+.noBorder {
+  border-color: transparent;
+}

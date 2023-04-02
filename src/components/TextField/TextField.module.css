@@ -1,0 +1,44 @@
+.textFieldContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.textField {
+  height: 40px;
+  font-family: "Plus Jakarta Sans";
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 23px;
+  background: none;
+  color: var(--text-color-theme);
+  border: 1px solid #ced4da;
+}
+
+.textField:enabled:focus {
+  box-shadow: none;
+}
+
+.error {
+  border: 1px solid var(--red);
+}
+
+.textFieldLabel {
+  margin-bottom: 8px;
+  font-family: "Plus Jakarta Sans";
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--text-color-theme);
+}
+
+.helperText {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 23px;
+}

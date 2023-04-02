@@ -1,30 +1,35 @@
-import { useTheme } from "@emotion/react";
-import { DropdownProps } from "primereact/dropdown";
+import { useThemeProvider } from "src/providers/theme/ThemeProvider";
+import { DropdownProps, Dropdown as PrimeDropdown } from "primereact/dropdown";
 import { FC } from "react";
 import { DropdownIconSvg } from "../SVGs/DropdownIconSvg";
-import * as S from "./styled";
+import s from "./Dropdown.module.css";
 
 type CustomDropdownProps = {
   label?: string;
 };
 
 export const Dropdown: FC<DropdownProps & CustomDropdownProps> = (props) => {
-  const theme = useTheme();
+  const { themeMode } = useThemeProvider();
   const panelStyle: DropdownProps["panelStyle"] = {
-    backgroundColor:
-      theme.mode === "dark" ? theme.colors.veryDarkGray : theme.colors.white,
+    backgroundColor: themeMode === "dark" ? "#20212C" : "#fff",
     border: "none",
     boxShadow: "none",
   };
 
   return (
-    <S.DropdownContainer>
-      <S.DropdownLabel>{props.label}</S.DropdownLabel>
-      <S.Dropdown
+    <div className={s.dropdownContainer}>
+      <div
+        className={`${s.dropdownLabel} ${
+          themeMode === "dark" ? s.dropdownLabelDark : ""
+        }`}
+      >
+        {props.label}
+      </div>
+      <PrimeDropdown
         {...props}
         panelStyle={panelStyle}
         dropdownIcon={DropdownIconSvg}
       />
-    </S.DropdownContainer>
+    </div>
   );
 };

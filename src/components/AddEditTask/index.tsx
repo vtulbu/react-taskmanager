@@ -1,15 +1,16 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from "react";
 
-import { AddTask, useBoards } from 'src/providers/board/BoardProvider';
-import { useDialog } from 'src/providers/dialog/DialogProvider';
-import { Button } from '../Button';
-import { Dropdown } from '../Dropdown';
-import { CloseSvg } from '../SVGs/CloseSvg';
-import { TextField } from '../TextField';
-import { TextFieldArea } from '../TextFieldArea';
-import * as S from './styled';
-import { useRouterQueryListener } from 'src/providers/hooks';
-import { EDIT } from 'src/constants';
+import { AddTask, useBoards } from "src/providers/board/BoardProvider";
+import { useDialog } from "src/providers/dialog/DialogProvider";
+import { Button } from "../Button";
+import { Dropdown } from "../Dropdown";
+import { CloseSvg } from "../SVGs/CloseSvg";
+import { TextField } from "../TextField";
+import { TextFieldArea } from "../TextFieldArea";
+import { useRouterQueryListener } from "src/providers/hooks";
+import { EDIT } from "src/constants";
+
+import s from "./AddEditTask.module.css";
 
 export const AddEditTask: FC = () => {
   const { taskAction, columnId, taskId } = useRouterQueryListener();
@@ -18,11 +19,11 @@ export const AddEditTask: FC = () => {
 
   const [{ currentBoard }, { handleAddTask, handleEditTask }] = useBoards();
 
-  const [taskForm, setTaskForm] = useState<Omit<AddTask, 'boardId'>>({
-    label: '',
-    description: '',
+  const [taskForm, setTaskForm] = useState<Omit<AddTask, "boardId">>({
+    label: "",
+    description: "",
     subTasks: [],
-    columnId: currentBoard?.columns[0].id || '',
+    columnId: currentBoard?.columns[0].id || "",
   });
 
   const statusOptions = currentBoard?.columns.map((column) => ({
@@ -37,17 +38,17 @@ export const AddEditTask: FC = () => {
       );
       const task = column?.task.find((task) => task.id === taskId);
       setTaskForm({
-        label: task?.label || '',
-        description: task?.description || '',
+        label: task?.label || "",
+        description: task?.description || "",
         subTasks: task?.subTasks || [],
-        columnId: columnId || '',
+        columnId: columnId || "",
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditing]);
 
   return (
-    <S.TaskFormContainer>
+    <div className={s.taskFormContainer}>
       <TextField
         onChange={(e) => {
           setTaskForm((prevValue) => {
@@ -55,8 +56,8 @@ export const AddEditTask: FC = () => {
           });
         }}
         value={taskForm.label}
-        label='Title'
-        placeholder='e.g. Take coffee break'
+        label="Title"
+        placeholder="e.g. Take coffee break"
       />
       <TextFieldArea
         onChange={(e) => {
@@ -66,17 +67,17 @@ export const AddEditTask: FC = () => {
         }}
         value={taskForm.description}
         autoResize
-        label='Description'
-        placeholder='e.g. It’s always good to take a break. This 15 minute break will 
-                    recharge the batteries a little.'
+        label="Description"
+        placeholder="e.g. It’s always good to take a break. This 15 minute break will 
+                    recharge the batteries a little."
       />
-      <S.SubTasksContainer>
+      <div className={s.subTasksContainer}>
         {taskForm.subTasks.map((subTask, idx) => {
           return (
-            <S.DissmissableTextField>
+            <div className={s.dissmissableTextField} key={subTask.label}>
               <TextField
                 {...(idx === 0 && {
-                  label: 'Subtasks',
+                  label: "Subtasks",
                 })}
                 value={taskForm.subTasks[idx].label}
                 onChange={(e) => {
@@ -100,32 +101,32 @@ export const AddEditTask: FC = () => {
                   });
                 }}
                 style={{
-                  ...(idx === 0 && { marginTop: '24px' }),
-                  backgroundColor: 'transparent',
-                  boxShadow: 'none',
-                  height: 'fit-content',
-                  border: 'none',
+                  ...(idx === 0 && { marginTop: "24px" }),
+                  backgroundColor: "transparent",
+                  boxShadow: "none",
+                  height: "fit-content",
+                  border: "none",
                 }}
               />
-            </S.DissmissableTextField>
+            </div>
           );
         })}
 
         <Button
-          label='+ Add New Subtask'
-          color='secondary'
+          label="+ Add New Subtask"
+          color="secondary"
           onClick={() => {
             setTaskForm((prevValue) => {
               return {
                 ...prevValue,
-                subTasks: [...prevValue.subTasks, { label: '' }],
+                subTasks: [...prevValue.subTasks, { label: "" }],
               };
             });
           }}
         />
-      </S.SubTasksContainer>
+      </div>
       <Dropdown
-        label='Status'
+        label="Status"
         value={taskForm.columnId}
         options={statusOptions}
         onChange={(e) => {
@@ -135,18 +136,19 @@ export const AddEditTask: FC = () => {
         }}
       />
       <Button
-        label={isEditing ? 'Save Changes' : 'Create Task'}
+        label={isEditing ? "Save Changes" : "Create Task"}
+        disabled={!taskForm.label}
         onClick={() => {
           closeDialog();
           isEditing
             ? handleEditTask({
                 ...taskForm,
-                boardId: currentBoard?.id || '',
-                id: taskId || '',
+                boardId: currentBoard?.id || "",
+                id: taskId || "",
               })
-            : handleAddTask({ ...taskForm, boardId: currentBoard?.id || '' });
+            : handleAddTask({ ...taskForm, boardId: currentBoard?.id || "" });
         }}
       />
-    </S.TaskFormContainer>
+    </div>
   );
 };

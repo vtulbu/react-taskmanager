@@ -1,0 +1,29 @@
+.sidebar {
+  border-top: none;
+  border-right: 1px solid var(--lines-light);
+  background-color: #fff;
+  box-shadow: none;
+}
+
+.sidebarTest:not([class*="p-sidebar-"]) {
+  display: block;
+}
+
+.sidebarDark {
+  border-right: 1px solid var(--lines-dark);
+  background-color: var(--dark-grey);
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    top: 39px !important;
+    height: calc(100vh - 79px) !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .sidebar {
+    top: 47px !important;
+    height: calc(100vh - 95px) !important;
+  }
+}

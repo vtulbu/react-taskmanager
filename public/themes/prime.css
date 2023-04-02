@@ -57,7 +57,7 @@
 /* ADDED GLOBAL STYLES */
 * {
   box-sizing: border-box;
-  font-family: 'Plus Jakarta Sans';
+  font-family: "Plus Jakarta Sans";
 }
 ul {
   padding: 0;
@@ -103,8 +103,8 @@ button {
 /* ADDED GLOBAL STYLES */
 
 .p-component {
-  font-family: -apple-system, 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, "Plus Jakarta Sans", "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
   font-weight: normal;
 }
@@ -127,8 +127,8 @@ button {
 }
 .p-link {
   font-size: 1rem;
-  font-family: -apple-system, 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, "Plus Jakarta Sans", "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   border-radius: 4px;
 }
 .p-link:focus {
@@ -307,8 +307,8 @@ button {
   .p-autocomplete-multiple-container
   .p-autocomplete-input-token
   input {
-  font-family: -apple-system, 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, "Plus Jakarta Sans", "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
   color: #495057;
   padding: 0;
@@ -802,8 +802,8 @@ button {
   padding: 0.375rem 0;
 }
 .p-chips .p-chips-multiple-container .p-chips-input-token input {
-  font-family: -apple-system, 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, "Plus Jakarta Sans", "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
   color: #495057;
   padding: 0;
@@ -1200,8 +1200,8 @@ button {
   border-color: #e24c4c;
 }
 .p-inputtext {
-  font-family: -apple-system, 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, "Plus Jakarta Sans", "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   color: var(--text-color-theme);
   background: #fff;
@@ -3377,20 +3377,20 @@ button {
   box-shadow: 0 0 0 0.2rem #c7d2fe;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button .fc-icon-chevron-left {
-  font-family: 'PrimeIcons' !important;
+  font-family: "PrimeIcons" !important;
   text-indent: 0;
   font-size: 1rem;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button .fc-icon-chevron-left:before {
-  content: '';
+  content: "";
 }
 .fc.fc-unthemed .fc-toolbar .fc-button .fc-icon-chevron-right {
-  font-family: 'PrimeIcons' !important;
+  font-family: "PrimeIcons" !important;
   text-indent: 0;
   font-size: 1rem;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button .fc-icon-chevron-right:before {
-  content: '';
+  content: "";
 }
 .fc.fc-unthemed .fc-toolbar .fc-button:focus {
   outline: 0 none;
@@ -3487,7 +3487,7 @@ button {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  font-family: 'PrimeIcons' !important;
+  font-family: "PrimeIcons" !important;
   font-size: 1rem;
   width: 2rem;
   height: 2rem;
@@ -3502,7 +3502,7 @@ button {
   .fc-popover
   .fc-popover-header
   .fc-popover-close:before {
-  content: '';
+  content: "";
 }
 .fc.fc-theme-standard
   .fc-view-harness
@@ -3585,20 +3585,20 @@ button {
   border: 1px solid #635fc7;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button .fc-icon-chevron-left {
-  font-family: 'PrimeIcons' !important;
+  font-family: "PrimeIcons" !important;
   text-indent: 0;
   font-size: 1rem;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button .fc-icon-chevron-left:before {
-  content: '';
+  content: "";
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button .fc-icon-chevron-right {
-  font-family: 'PrimeIcons' !important;
+  font-family: "PrimeIcons" !important;
   text-indent: 0;
   font-size: 1rem;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button .fc-icon-chevron-right:before {
-  content: '';
+  content: "";
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button:focus {
   outline: 0 none;
@@ -4765,9 +4765,7 @@ button {
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #c7d2fe;
 }
-.p-sidebar .p-sidebar-header + .p-sidebar-content {
-  padding-top: 84px;
-}
+
 .p-sidebar-header {
   display: none !important;
 }
@@ -4777,6 +4775,7 @@ button {
 }
 .p-sidebar-left .p-sidebar {
   width: 260px !important;
+  transition: width 0.2s;
 }
 
 @media (min-width: 1440px) {
@@ -6038,7 +6037,7 @@ button {
   color: #495057;
 }
 .p-steps .p-steps-item:before {
-  content: ' ';
+  content: " ";
   border-top: 1px solid #dee2e6;
   width: 100%;
   top: 50%;
@@ -6819,8 +6818,8 @@ button {
 }
 .p-terminal .p-terminal-input {
   font-size: 1rem;
-  font-family: -apple-system, 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: -apple-system, "Plus Jakarta Sans", "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 .p-button-label {
   font-weight: 700;

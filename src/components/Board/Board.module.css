@@ -1,0 +1,106 @@
+.boardContainer {
+  height: 100%;
+  display: flex;
+  padding: 24px 16px;
+  overflow-x: auto;
+  gap: 48px;
+}
+
+.emptyBoardContainer {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.boardColumn {
+  width: 280px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.p-button {
+  margin-top: 38px;
+  background: var(--dark-grey + "99");
+  border-radius: 6px;
+  height: 100%;
+  color: var(--medium-grey);
+}
+
+.p-button:hover {
+  background: var(--dark-grey + "aa");
+  transition: background 0.1s ease-in;
+}
+
+.boardColumnLabel {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 2.4px;
+  color: #fff;
+  margin-bottom: 4px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.boardColumnLabelLight {
+  color: var(--medium-grey);
+}
+
+.p-badge {
+  background-color: red;
+  min-height: 15px;
+  min-width: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.columnTask {
+  background-color: var(--header);
+  box-shadow: 0px 4px 6px rgba(54, 78, 126, 0.101545);
+  border-radius: 8px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+
+.columnTask:hover {
+  background-color: var(--hover-card);
+  transform: scale(1.02);
+}
+
+.taskLabel {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  margin: 0 0 8px;
+}
+
+.subTaskLabel {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--medium-grey);
+  margin: 0;
+}
+
+.emptyBoardLabel {
+  color: var(--medium-grey);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
+  padding: 0 70px;
+}

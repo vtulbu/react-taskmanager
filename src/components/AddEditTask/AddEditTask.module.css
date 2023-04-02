@@ -1,0 +1,33 @@
+.taskFormContainer {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+@media (min-width: 768px) {
+  .taskFormContainer {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .taskFormContainer {
+    padding: 32px;
+  }
+}
+
+.subTasksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dissmissableTextField {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}

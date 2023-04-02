@@ -1,29 +1,44 @@
-import { ReactNode } from 'react';
-import { useSidebar } from 'src/providers/sidebar/SidebarProvider';
-import { Button } from '../Button';
-import { Header } from '../Header';
-import { EyeOpen } from '../SVGs/EyeOpen';
+import { useResizeDetector } from "react-resize-detector";
+import { useThemeProvider } from "src/providers/theme/ThemeProvider";
+import { ReactNode } from "react";
+import { useSidebar } from "src/providers/sidebar/SidebarProvider";
+import { Button } from "../Button";
+import { Header } from "../Header";
+import { EyeOpen } from "../SVGs/EyeOpen";
 
-import * as S from './styled';
+import s from "./Layout.module.css";
 
 export const Layout = ({ children }: { children: ReactNode }) => {
+  const { width, ref } = useResizeDetector();
   const [{ isSidebarOpen }, { handleSidebarState }] = useSidebar();
+  const { themeMode } = useThemeProvider();
+
+  const contentClassNames = `${s.content} ${
+    isSidebarOpen && s.contentIsSidebarOpen
+  } ${
+    themeMode === "dark" ? s.contentBackgroundDark : s.contentBackgroundLight
+  }`;
 
   return (
-    <S.LayoutContainer>
+    <div ref={ref} className={s.layoutContainer}>
       <Header />
-      <S.Content isSidebarOpen={isSidebarOpen}>
+      <div className={contentClassNames}>
         {children}
-        {window.innerWidth > 768 && (
-          <S.SidebarButton>
+        {width && width > 768 && (
+          <div className={s.sidebarButton}>
             <Button
+              style={{
+                width: "56px",
+                height: "56px",
+                padding: "0",
+                borderRadius: "0 100px 100px 0",
+              }}
               icon={<EyeOpen />}
-              padding='0'
               onClick={handleSidebarState}
             />
-          </S.SidebarButton>
+          </div>
         )}
-      </S.Content>
-    </S.LayoutContainer>
+      </div>
+    </div>
   );
 };

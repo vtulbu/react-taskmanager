@@ -1,0 +1,43 @@
+.checkboxContainerLight {
+  display: flex;
+  gap: 16px;
+  width: 350px;
+  height: 40px;
+  align-items: center;
+  background-color: var(--lines-light);
+  border-radius: 4px;
+  padding-left: 12px;
+  transition: background-color 0.2s, color 0.2s;
+}
+.checkboxContainerDark {
+  display: flex;
+  gap: 16px;
+  width: 350px;
+  height: 40px;
+  align-items: center;
+  background-color: var(--very-dark-gray);
+  border-radius: 4px;
+  padding-left: 12px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.checkboxContainer:hover {
+  background-color: var(--primary-color + "3f");
+}
+
+.checkboxLabel {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.checkboxLabelCheckedLight {
+  text-decoration: line-through;
+  color: var(--very-dark-gray);
+}
+
+.checkboxLabelCheckedDark {
+  text-decoration: line-through;
+  color: var(--very-dark-gray);
+}

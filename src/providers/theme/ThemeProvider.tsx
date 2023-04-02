@@ -5,14 +5,11 @@ import {
   useEffect,
   useState,
   useMemo,
-} from 'react';
-import { ThemeProvider as MuiThemeProvider } from '@emotion/react';
+} from "react";
 
-import { theme } from '../../styles/themes/theme';
-
-const THEME = 'theme' as const;
-const LIGHT = 'light' as const;
-const DARK = 'dark' as const;
+const THEME = "theme" as const;
+const LIGHT = "light" as const;
+const DARK = "dark" as const;
 
 type ThemeMode = typeof LIGHT | typeof DARK;
 
@@ -41,24 +38,24 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [themeMode]);
 
   useEffect(() => {
-    const isStylesheetCreated = document.getElementById('theme-link');
+    const isStylesheetCreated = document.getElementById("theme-link");
 
     if (!isStylesheetCreated) {
-      const link = document.createElement('link');
-      link.setAttribute('id', 'theme-link');
-      link.setAttribute('rel', 'stylesheet');
-      link.setAttribute('href', `/themes/${themeMode}.css`);
+      const link = document.createElement("link");
+      link.setAttribute("id", "theme-link");
+      link.setAttribute("rel", "stylesheet");
+      link.setAttribute("href", `/themes/${themeMode}.css`);
       document.head.appendChild(link);
     }
 
     if (isStylesheetCreated) {
-      isStylesheetCreated.setAttribute('href', `/themes/${themeMode}.css`);
+      isStylesheetCreated.setAttribute("href", `/themes/${themeMode}.css`);
     }
   }, [themeMode]);
 
   return (
     <ThemeContext.Provider value={providerValues}>
-      <MuiThemeProvider theme={theme(themeMode)}>{children}</MuiThemeProvider>
+      {children}
     </ThemeContext.Provider>
   );
 };

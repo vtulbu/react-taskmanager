@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'primereact/button';
-import { OverlayPanel } from 'primereact/overlaypanel';
-import { FC, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
+import { Button } from "primereact/button";
+import { OverlayPanel } from "primereact/overlaypanel";
+import { FC, useEffect, useRef } from "react";
 
-import { ActionMenuDots } from '../SVGs/ActionMenuDots';
+import { ActionMenuDots } from "../SVGs/ActionMenuDots";
 
 import {
   BOARD,
@@ -14,10 +14,11 @@ import {
   TASK,
   TASK_ACTION,
   TASK_ID,
-} from 'src/constants';
+} from "src/constants";
 
-import * as S from './styled';
-import { useRouterQueryListener } from 'src/providers/hooks';
+import { useRouterQueryListener } from "src/providers/hooks";
+
+import s from "./DotMenu.module.css";
 
 type DotMenuProps = {
   forItem: typeof BOARD | typeof TASK;
@@ -58,22 +59,24 @@ export const DotMenu: FC<DotMenuProps> = ({ forItem }) => {
   }, [boardAction, taskAction]);
 
   return (
-    <S.Container>
+    <div>
       <OverlayPanel ref={menu}>
-        <S.ContentOverlay>
-          <S.ButtonMenu onClick={handleEdit}>Edit {forItem}</S.ButtonMenu>
-          <S.ButtonMenu onClick={handleDelete} className='red'>
+        <div className={s.contentOverlay}>
+          <div className={s.buttonMenu} onClick={handleEdit}>
+            Edit {forItem}
+          </div>
+          <div className={`${s.buttonMenu} ${s.red}`} onClick={handleDelete}>
             Delete {forItem}
-          </S.ButtonMenu>
-        </S.ContentOverlay>
+          </div>
+        </div>
       </OverlayPanel>
       <Button
         text
-        className='icon-button'
+        className={s["icon-button"]}
         onClick={(e) => menu.current?.toggle(e)}
       >
         <ActionMenuDots />
       </Button>
-    </S.Container>
+    </div>
   );
 };

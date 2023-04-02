@@ -1,28 +1,33 @@
-import { FC, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useResizeDetector } from "react-resize-detector";
 
-import { DotMenu } from '..';
-import { Button } from '../Button';
+import { DotMenu } from "..";
 
-import { LogoSVG } from '../SVGs/LogoSvg';
-import { PlusSvg } from '../SVGs/PlusSvg';
-import { LogoIconSvg } from '../SVGs/LogoIconSvg';
-import { SidebarArrowSvg } from '../SVGs/SideBarArrowSvg';
-import { useSidebar } from 'src/providers/sidebar/SidebarProvider';
-import { useBoards } from 'src/providers/board/BoardProvider';
+import { LogoSVG } from "../SVGs/LogoSvg";
+import { PlusSvg } from "../SVGs/PlusSvg";
+import { LogoIconSvg } from "../SVGs/LogoIconSvg";
+import { SidebarArrowSvg } from "../SVGs/SideBarArrowSvg";
+import { useSidebar } from "src/providers/sidebar/SidebarProvider";
+import { useBoards } from "src/providers/board/BoardProvider";
 
-import * as S from './styled';
-import { useDialog } from 'src/providers/dialog/DialogProvider';
-import { AddEditTask } from '../AddEditTask';
-import { BOARD, CREATE, DELETE, EDIT, TASK_ACTION } from 'src/constants';
-import { useRouterQueryListener } from 'src/providers/hooks';
-import { DeleteModal } from '../DeleteModal';
+import { useDialog } from "src/providers/dialog/DialogProvider";
+import { AddEditTask } from "../AddEditTask";
+import { BOARD, CREATE, DELETE, EDIT, TASK_ACTION } from "src/constants";
+import { useRouterQueryListener } from "src/providers/hooks";
+import { DeleteModal } from "../DeleteModal";
+
+import s from "./Header.module.css";
+import { useThemeProvider } from "src/providers/theme/ThemeProvider";
+import { Button } from "primereact/button";
 
 export const Header: FC = () => {
+  const { width, ref } = useResizeDetector();
+  const { themeMode } = useThemeProvider();
   const navigate = useNavigate();
   const { taskAction } = useRouterQueryListener();
   const [, { handleSidebarState }] = useSidebar();
-  const [, { openDialog }] = useDialog();
+  const [{ isDialogOpen }, { openDialog }] = useDialog();
   const [{ currentBoard }] = useBoards();
   const isCreatingTask = taskAction === CREATE;
   const isEditingTask = taskAction === EDIT;
@@ -32,8 +37,8 @@ export const Header: FC = () => {
     if (isCreatingTask || isEditingTask) {
       openDialog({
         body: <AddEditTask />,
-        size: 'medium',
-        title: isEditingTask ? 'Edit Task' : 'Add New Task',
+        size: "medium",
+        title: isEditingTask ? "Edit Task" : "Add New Task",
       });
     }
 
@@ -46,31 +51,43 @@ export const Header: FC = () => {
   }, [isCreatingTask, isEditingTask, isDeletingTask]);
 
   return (
-    <S.HeaderContainer>
-      {window.innerWidth <= 768 ? <LogoIconSvg /> : <LogoSVG />}
-      {/* {window.innerWidth >= 769 && <S.Divider />} */}
-      <S.HeaderTitleAndActions>
-        <S.HeaderTitle
+    <header
+      ref={ref}
+      className={`${s.headerContainer} ${
+        themeMode === "dark" ? s.headerDark : s.headerLight
+      } ${isDialogOpen && s.zIndex}`}
+    >
+      <div className={s.svgLogoLarge}>
+        <LogoSVG />
+      </div>
+      <div className={s.svgLogoSmall}>{<LogoIconSvg />}</div>
+      <div className={s.divider} />
+      <div className={s.headerTitleAndActions}>
+        <div
+          className={s.headerTitle}
           onClick={() => {
-            window.innerWidth <= 768 && handleSidebarState();
+            width && width <= 768 && handleSidebarState();
           }}
         >
-          {currentBoard && <S.BoardName>{currentBoard.label}</S.BoardName>}
-          {window.innerWidth <= 768 && <SidebarArrowSvg />}
-        </S.HeaderTitle>
+          {currentBoard && (
+            <h2 className={s.boardName}>{currentBoard.label}</h2>
+          )}
+          {width && width <= 768 && <SidebarArrowSvg />}
+        </div>
 
-        <S.HeaderActions>
+        <div className={s.headerActions}>
           <Button
+            className={s.addTaskButton}
             onClick={() => navigate(`?${TASK_ACTION}=${CREATE}`)}
-            label={window.innerWidth > 768 ? '+ Add New Task' : undefined}
-            {...(window.innerWidth <= 768 && {
+            label={window.innerWidth >= 768 ? "+ Add New Task" : undefined}
+            {...(window.innerWidth < 768 && {
               icon: <PlusSvg />,
             })}
             disabled={!currentBoard?.columns.length}
           />
           <DotMenu forItem={BOARD} />
-        </S.HeaderActions>
-      </S.HeaderTitleAndActions>
-    </S.HeaderContainer>
+        </div>
+      </div>
+    </header>
   );
 };
