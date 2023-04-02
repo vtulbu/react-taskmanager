@@ -4,6 +4,7 @@ declare const styles: {
   readonly "boardColumn": string;
   readonly "p-button": string;
   readonly "boardColumnLabel": string;
+  readonly "boardColumnLabelLight": string;
   readonly "p-badge": string;
   readonly "columnTask": string;
   readonly "taskLabel": string;

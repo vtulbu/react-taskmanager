@@ -11,6 +11,7 @@ import { ViewTask } from "../ViewTask";
 import { DeleteModal } from "../DeleteModal";
 
 import s from "./Board.module.css";
+import { useThemeProvider } from "src/providers/theme/ThemeProvider";
 
 export const Board = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export const Board = () => {
   const isDeletingBoard = boardAction === DELETE;
   const [{ currentBoard }] = useBoards();
   const [, { openDialog }] = useDialog();
+  const { themeMode } = useThemeProvider();
 
   useEffect(() => {
     if (isEditingBoard) {
@@ -57,7 +59,11 @@ export const Board = () => {
     >
       {currentBoard?.columns?.map((column) => (
         <div className={s.boardColumn} key={column.id}>
-          <div className={s.boardColumnLabel}>
+          <div
+            className={`${s.boardColumnLabel} ${
+              themeMode === "light" && s.boardColumnLabelLight
+            }`}
+          >
             {column.label} ({column.task.length})
           </div>
           {column.task?.map((task) => {
