@@ -1,17 +1,17 @@
-import { useBoards } from "src/providers/board/BoardProvider";
-import { useDialog } from "src/providers/dialog/DialogProvider";
+import { useBoards } from 'src/providers/board/BoardProvider';
+import { useDialog } from 'src/providers/dialog/DialogProvider';
 
-import { Button } from "../Button";
-import { AddEditBoard } from "../AddEditBoard";
-import { useNavigate } from "react-router-dom";
-import { useRouterQueryListener } from "src/providers/hooks";
-import { useEffect } from "react";
-import { BOARD_ACTION, COLUMN_ID, DELETE, EDIT, TASK_ID } from "src/constants";
-import { ViewTask } from "../ViewTask";
-import { DeleteModal } from "../DeleteModal";
+import { Button } from '../Button';
+import { AddEditBoard } from '../AddEditBoard';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BOARD_ACTION, COLUMN_ID, DELETE, EDIT, TASK_ID } from 'src/constants';
+import { ViewTask } from '../ViewTask';
+import { DeleteModal } from '../DeleteModal';
 
-import s from "./Board.module.css";
-import { useThemeProvider } from "src/providers/theme/ThemeProvider";
+import s from './Board.module.css';
+import { useThemeProvider } from 'src/providers/theme/ThemeProvider';
+import { useRouterQueryListener } from 'src/hooks';
 
 export const Board = () => {
   const navigate = useNavigate();
@@ -26,8 +26,8 @@ export const Board = () => {
     if (isEditingBoard) {
       openDialog({
         body: <AddEditBoard />,
-        size: window.innerWidth < 768 ? "small" : "medium",
-        title: "Edit Board",
+        size: window.innerWidth < 768 ? 'small' : 'medium',
+        title: 'Edit Board',
       });
     }
 
@@ -61,7 +61,7 @@ export const Board = () => {
         <div className={s.boardColumn} key={column.id}>
           <div
             className={`${s.boardColumnLabel} ${
-              themeMode === "light" && s.boardColumnLabelLight
+              themeMode === 'light' && s.boardColumnLabelLight
             }`}
           >
             {column.label} ({column.task.length})
@@ -91,7 +91,7 @@ export const Board = () => {
           </div>
           <Button
             onClick={() => navigate(`?${BOARD_ACTION}=${EDIT}`)}
-            label="+ Add New Column"
+            label='+ Add New Column'
           />
         </>
       )}

@@ -12,3 +12,10 @@ export const BOARD_ACTION = 'boardAction';
 export const TASK_ACTION = 'taskAction';
 export const TASK_ID = 'taskId';
 export const COLUMN_ID = 'columnId';
+
+export const screenSizes = {
+  xs: 0,
+  sm: 375,
+  md: 768,
+  lg: 1440,
+} as const;

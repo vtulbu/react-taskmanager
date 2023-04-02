@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { Button } from "primereact/button";
-import { OverlayPanel } from "primereact/overlaypanel";
-import { FC, useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'primereact/button';
+import { OverlayPanel } from 'primereact/overlaypanel';
+import { FC, useEffect, useRef } from 'react';
 
-import { ActionMenuDots } from "../SVGs/ActionMenuDots";
+import { ActionMenuDots } from '../SVGs/ActionMenuDots';
 
 import {
   BOARD,
@@ -14,11 +14,11 @@ import {
   TASK,
   TASK_ACTION,
   TASK_ID,
-} from "src/constants";
+} from 'src/constants';
 
-import { useRouterQueryListener } from "src/providers/hooks";
+import { useRouterQueryListener } from 'src/hooks';
 
-import s from "./DotMenu.module.css";
+import s from './DotMenu.module.css';
 
 type DotMenuProps = {
   forItem: typeof BOARD | typeof TASK;
@@ -72,7 +72,7 @@ export const DotMenu: FC<DotMenuProps> = ({ forItem }) => {
       </OverlayPanel>
       <Button
         text
-        className={s["icon-button"]}
+        className={s['icon-button']}
         onClick={(e) => menu.current?.toggle(e)}
       >
         <ActionMenuDots />

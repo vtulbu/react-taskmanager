@@ -1,18 +1,17 @@
-import { useBoards } from "src/providers/board/BoardProvider";
-import { useDialog } from "src/providers/dialog/DialogProvider";
-import { useSidebar } from "src/providers/sidebar/SidebarProvider";
-import { AddEditBoard } from "../AddEditBoard";
-import { paths } from "../Sidebar/mockData";
-import { BoardLinkSvg } from "../SVGs/BoardLinkSvg";
-import { EyeClosedSvg } from "../SVGs/EyeClosedSvg";
-import { ThemeSwitcher } from "../ThemeSwitcher";
-import { useRouterQueryListener } from "src/providers/hooks";
-import { BOARDS, BOARD_ACTION, CREATE } from "src/constants";
-import { NavLinkProps, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { NavLink as RouterNavLink } from "react-router-dom";
+import { useBoards } from 'src/providers/board/BoardProvider';
+import { useDialog } from 'src/providers/dialog/DialogProvider';
+import { useSidebar } from 'src/providers/sidebar/SidebarProvider';
+import { AddEditBoard } from '../AddEditBoard';
+import { BoardLinkSvg } from '../SVGs/BoardLinkSvg';
+import { EyeClosedSvg } from '../SVGs/EyeClosedSvg';
+import { ThemeSwitcher } from '../ThemeSwitcher';
+import { useRouterQueryListener } from 'src/hooks';
+import { BOARDS, BOARD_ACTION, CREATE } from 'src/constants';
+import { NavLinkProps, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { NavLink as RouterNavLink } from 'react-router-dom';
 
-import s from "./MenuBody.module.css";
+import s from './MenuBody.module.css';
 
 export const MenuBody = () => {
   const navigate = useNavigate();
@@ -26,17 +25,17 @@ export const MenuBody = () => {
     if (isCreating) {
       openDialog({
         body: <AddEditBoard />,
-        size: window.innerWidth < 768 ? "small" : "medium",
-        title: "Add New Board",
+        size: window.innerWidth < 768 ? 'small' : 'medium',
+        title: 'Add New Board',
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCreating]);
 
-  const navLinkStyle: NavLinkProps["style"] = ({ isActive }) => {
+  const navLinkStyle: NavLinkProps['style'] = ({ isActive }) => {
     return {
-      color: isActive ? "#fff" : "var(--medium-grey)",
-      ...(isActive && { backgroundColor: "var(--primary-color)" }),
+      color: isActive ? '#fff' : 'var(--medium-grey)',
+      ...(isActive && { backgroundColor: 'var(--primary-color)' }),
     };
   };
 
@@ -54,7 +53,7 @@ export const MenuBody = () => {
             >
               {({ isActive }) => (
                 <>
-                  <BoardLinkSvg color={isActive ? "#fff" : "#828fa3"} />
+                  <BoardLinkSvg color={isActive ? '#fff' : '#828fa3'} />
                   {p.label}
                 </>
               )}
@@ -67,7 +66,7 @@ export const MenuBody = () => {
             }}
             className={s.createBoardButton}
           >
-            <BoardLinkSvg color="#828fa3" />
+            <BoardLinkSvg color='#828fa3' />
             <p>+ Create New Board</p>
           </button>
         </div>
@@ -75,7 +74,7 @@ export const MenuBody = () => {
       <div className={s.sidebarActionContainer}>
         <ThemeSwitcher />
         {window.innerWidth >= 768 && (
-          <button onClick={handleSidebarState} className={s["hide-sidebar"]}>
+          <button onClick={handleSidebarState} className={s['hide-sidebar']}>
             <EyeClosedSvg />
             Hide Sidebar
           </button>

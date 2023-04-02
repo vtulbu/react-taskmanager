@@ -4,7 +4,7 @@ import { useBoards } from 'src/providers/board/BoardProvider';
 import { Button } from '../Button';
 
 import './styled.css';
-import { useRouterQueryListener } from 'src/providers/hooks';
+import { useRouterQueryListener } from 'src/hooks';
 import { useDialog } from 'src/providers/dialog/DialogProvider';
 
 export const DeleteModal: FC = () => {
