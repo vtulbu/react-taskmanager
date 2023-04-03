@@ -74,7 +74,7 @@
 }
 
 .navLink:hover {
-  background-color: var(--primary-color);
+  background-color: var(--hover-item-boards);
   color: #fff;
 }
 

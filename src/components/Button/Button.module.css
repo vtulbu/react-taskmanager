@@ -4,8 +4,14 @@
 }
 
 .p-button-secondary-light {
-  background-color: var(--primary-color + "19");
-  color: #fff;
+  background-color: var(--button-text);
+  color: var(--primary-color);
+}
+
+.p-button-secondary-light:hover {
+  background-color: var(--light-grey) !important;
+  color: var(--primary-color) !important;
+  border-color: var(--light-grey) !important;
 }
 
 .p-button-primary-dark {
@@ -14,8 +20,14 @@
 }
 
 .p-button-secondary-dark {
-  background-color: #fff;
+  background-color: var(--white);
   color: var(--primary-color);
+}
+
+.p-button-secondary-dark:hover {
+  background-color: var(--lines-light) !important;
+  color: var(--primary-color) !important;
+  border-color: var(--lines-light) !important;
 }
 
 .noBorder {

@@ -31,8 +31,12 @@
   font-size: 15px;
   line-height: 23px;
   margin: 0;
-  color: #fff;
+  color: var(--black);
   padding: 24px 24px 0 24px;
+}
+
+.darkTitleText {
+  color: #fff;
 }
 
 @media (min-width: 768px) {
