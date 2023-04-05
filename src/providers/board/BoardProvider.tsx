@@ -5,14 +5,15 @@ import {
   useContext,
   useEffect,
   useReducer,
-} from 'react';
-import { useMatch, useNavigate } from 'react-router-dom';
+  useState,
+} from "react";
+import { useMatch, useNavigate } from "react-router-dom";
 
-import { boards as boardsMock } from './mockData';
-import { Board, CreateBoard, CreateColumn, CreateTask } from './types';
-import { noop } from 'lodash';
-import { BOARDS, COLUMN_ID, PAGE_OF_BOARD, TASK_ID } from '../../constants';
-import { reducer } from './reducer';
+import { boards as boardsMock } from "./mockData";
+import { Board, CreateBoard, CreateColumn, CreateTask } from "./types";
+import { noop } from "lodash";
+import { BOARDS, COLUMN_ID, PAGE_OF_BOARD, TASK_ID } from "../../constants";
+import { reducer } from "./reducer";
 
 type BoardContextState = {
   boards: Board[];
@@ -81,14 +82,14 @@ const BoardContext = createContext<[BoardContextState, BoardContextAction]>([
 ]);
 
 export enum AddActionsReducerTypes {
-  AddBoard = 'ADD_BOARD',
-  DeleteBoard = 'DELETE_BOARD',
-  EditBoard = 'EDIT_BOARD',
-  AddTask = 'ADD_TASK',
-  EditTask = 'EDIT_TASK',
-  DeleteTask = 'DELETE_TASK',
-  ChangeTaskStatus = 'CHANGE_TASK_STATUS',
-  CheckSubTask = 'CHECK_SUB_TASK',
+  AddBoard = "ADD_BOARD",
+  DeleteBoard = "DELETE_BOARD",
+  EditBoard = "EDIT_BOARD",
+  AddTask = "ADD_TASK",
+  EditTask = "EDIT_TASK",
+  DeleteTask = "DELETE_TASK",
+  ChangeTaskStatus = "CHANGE_TASK_STATUS",
+  CheckSubTask = "CHECK_SUB_TASK",
 }
 
 export type BoardActionsType = {
@@ -110,6 +111,7 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
     reducer,
     boardsMock
   );
+  const [currentBoardLength, setCurrentBoardLength] = useState(boards.length);
 
   const navigate = useNavigate();
   const routerBoardId = useMatch(PAGE_OF_BOARD)?.params.id;
@@ -121,6 +123,14 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (currentBoardLength < boards.length) {
+      navigate(`boards/${boards[boards.length - 1].id}`);
+      setCurrentBoardLength(boards.length);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [boards]);
 
   const handleAddBoard = (addBoard: AddBoard) => {
     dispatch({
@@ -139,7 +149,7 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
   const handleDeleteBoard = () => {
     dispatch({
       type: AddActionsReducerTypes.DeleteBoard,
-      payload: { deleteBoard: { id: currentBoard?.id || '' } },
+      payload: { deleteBoard: { id: currentBoard?.id || "" } },
     });
   };
 

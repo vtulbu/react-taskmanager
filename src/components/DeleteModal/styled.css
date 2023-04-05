@@ -3,6 +3,13 @@
   flex-direction: column;
   justify-content: center;
   gap: 24px;
+  margin: 0 24px 24px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    margin: 0 32px 32px;
+  }
 }
 
 .text-heading {

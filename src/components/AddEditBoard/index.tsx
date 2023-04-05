@@ -41,7 +41,7 @@ export const AddEditBoard: FC = () => {
       <div className={styles.dissmissableContainer}>
         {boardForm.columns.map((column, idx) => {
           return (
-            <div className={styles.dissmissableTextfield} key={column.label}>
+            <div className={styles.dissmissableTextfield} key={`${idx}_column`}>
               <TextField
                 {...(idx === 0 && {
                   label: 'Board Columns',
