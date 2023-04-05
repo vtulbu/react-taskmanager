@@ -74,7 +74,7 @@ export const AddEditTask: FC = () => {
       <div className={s.subTasksContainer}>
         {taskForm.subTasks.map((subTask, idx) => {
           return (
-            <div className={s.dissmissableTextField} key={subTask.label}>
+            <div className={s.dissmissableTextField} key={`${idx}_subtask`}>
               <TextField
                 {...(idx === 0 && {
                   label: 'Subtasks',
