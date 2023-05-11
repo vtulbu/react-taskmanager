@@ -1,6 +1,6 @@
-import { camelCase, uniqueId } from 'lodash';
-import { AddActionsReducerTypes, BoardActionsType } from './BoardProvider';
-import { Board } from './types';
+import { camelCase, uniqueId } from "lodash";
+import { AddActionsReducerTypes, BoardActionsType } from "./BoardProvider";
+import { Board } from "./types";
 
 export const reducer = (state: Board[], action: BoardActionsType): Board[] => {
   switch (action.type) {
@@ -274,6 +274,97 @@ export const reducer = (state: Board[], action: BoardActionsType): Board[] => {
                     return task;
                   }),
                 };
+              }
+
+              return column;
+            }),
+          };
+        }
+
+        return board;
+      });
+    }
+
+    case AddActionsReducerTypes.UpdateTaskColumnDrag: {
+      const payload = action.payload.updateTaskColumnDrag;
+
+      if (!payload) {
+        return state;
+      }
+
+      return state.map((board) => {
+        if (board.id === payload.boardId) {
+          return {
+            ...board,
+            columns: board.columns.map((column) => {
+              if (column.id === payload.oldColumnId) {
+                return {
+                  ...column,
+                  task: column.task.filter(
+                    (task) => task.id !== payload.taskId
+                  ),
+                };
+              }
+
+              if (column.id === payload.newColumnId) {
+                const task = board.columns
+                  .find((c) => c.id === payload.oldColumnId)
+                  ?.task.find((t) => t.id === payload.taskId);
+
+                if (task) {
+                  return {
+                    ...column,
+                    task: [...column.task, task],
+                  };
+                }
+              }
+
+              return column;
+            }),
+          };
+        }
+
+        return board;
+      });
+    }
+
+    case AddActionsReducerTypes.UpdateTaskInColumnDrag: {
+      const payload = action.payload.updateTaskInColumnDrag;
+
+      if (!payload) {
+        return state;
+      }
+
+      return state.map((board) => {
+        if (board.id === payload.boardId) {
+          return {
+            ...board,
+            columns: board.columns.map((column) => {
+              if (column.id === payload.columnId) {
+                const taskIndex = column?.task.findIndex(
+                  (t) => t.id === payload.taskId
+                );
+
+                if (taskIndex !== undefined && taskIndex !== -1) {
+                  const task = column?.task[taskIndex];
+
+                  return {
+                    ...column,
+                    task: column.task.map((t, index) => {
+                      if (index === taskIndex) {
+                        return column.task[payload.newIndex];
+                      }
+
+                      if (index === payload.newIndex) {
+                        return task;
+                      }
+
+                      return t;
+                    }),
+                  };
+                }
+
+                return column;
               }
 
               return column;

@@ -1171,7 +1171,7 @@ button {
   width: 14px;
   height: 14px;
   left: 0.25rem;
-  margin-top: -0.45rem;
+  margin-top: -0.4rem;
   border-radius: 50%;
   transition-duration: 0.2s;
 }
@@ -4765,7 +4765,9 @@ button {
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #c7d2fe;
 }
-
+.p-sidebar .p-sidebar-header + .p-sidebar-content {
+  padding-top: 84px;
+}
 .p-sidebar-header {
   display: none !important;
 }

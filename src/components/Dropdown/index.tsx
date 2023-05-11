@@ -22,6 +22,12 @@ export const Dropdown: FC<DropdownProps & CustomDropdownProps> = (props) => {
         className={`${s.dropdownLabel} ${
           themeMode === "dark" ? s.dropdownLabelDark : ""
         }`}
+        style={{
+          fontSize: "12px",
+          fontWeight: "700",
+          lineHeight: "15px",
+          color: "#828FA3",
+        }}
       >
         {props.label}
       </div>

@@ -1,24 +1,26 @@
-import { useBoards } from 'src/providers/board/BoardProvider';
-import { useDialog } from 'src/providers/dialog/DialogProvider';
+import { useBoards } from "src/providers/board/BoardProvider";
+import { useDialog } from "src/providers/dialog/DialogProvider";
 
-import { Button } from '../Button';
-import { AddEditBoard } from '../AddEditBoard';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { BOARD_ACTION, COLUMN_ID, DELETE, EDIT, TASK_ID } from 'src/constants';
-import { ViewTask } from '../ViewTask';
-import { DeleteModal } from '../DeleteModal';
+import { Button } from "../Button";
+import { AddEditBoard } from "../AddEditBoard";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { BOARD_ACTION, COLUMN_ID, DELETE, EDIT, TASK_ID } from "src/constants";
+import { ViewTask } from "../ViewTask";
+import { DeleteModal } from "../DeleteModal";
 
-import s from './Board.module.css';
-import { useThemeProvider } from 'src/providers/theme/ThemeProvider';
-import { useRouterQueryListener } from 'src/hooks';
+import s from "./Board.module.css";
+import { useThemeProvider } from "src/providers/theme/ThemeProvider";
+import { useRouterQueryListener } from "src/hooks";
+import { Board as BoardType } from "src/providers/board/types";
 
 export const Board = () => {
   const navigate = useNavigate();
   const { boardAction, taskId, taskAction } = useRouterQueryListener();
   const isEditingBoard = boardAction === EDIT;
   const isDeletingBoard = boardAction === DELETE;
-  const [{ currentBoard }] = useBoards();
+  const [{ currentBoard }, { updateTaskInColumnDrag, updateTaskColumnDrag }] =
+    useBoards();
   const [, { openDialog }] = useDialog();
   const { themeMode } = useThemeProvider();
 
@@ -26,8 +28,8 @@ export const Board = () => {
     if (isEditingBoard) {
       openDialog({
         body: <AddEditBoard />,
-        size: window.innerWidth < 768 ? 'small' : 'medium',
-        title: 'Edit Board',
+        size: window.innerWidth < 768 ? "small" : "medium",
+        title: "Edit Board",
       });
     }
 
@@ -49,26 +51,79 @@ export const Board = () => {
 
   const isBoardEmpty = !Boolean(currentBoard?.columns?.length);
 
-  {
-    /* <S.ColumnBadge color={generateColor()} /> {column.label} */
-  }
+  const onDrop = (event: any, columnId: string) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log(event);
+    const taskId = event.dataTransfer.getData("taskId");
+    const fromColumnId = event.dataTransfer.getData("columnId");
+    event.dataTransfer.clearData();
+
+    const isTheSameColumn = fromColumnId === columnId;
+
+    if (isTheSameColumn) {
+      return;
+    }
+    updateTaskColumnDrag(fromColumnId, columnId, taskId);
+  };
+
+  const handleStartDrag = (
+    event: any,
+    task: BoardType["columns"][number]["task"][number],
+    columnId: string
+  ) => {
+    event.stopPropagation();
+
+    event.dataTransfer.dropEffect = "move";
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("taskId", task.id);
+    event.dataTransfer.setData("columnId", columnId);
+  };
+
+  const onDropInTheSameColumn = (
+    event: any,
+    columnId: string,
+    index: number
+  ) => {
+    const taskId = event.dataTransfer.getData("taskId");
+
+    updateTaskInColumnDrag(columnId, taskId, index);
+  };
+
+  const onDragOver = (e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
 
   return (
     <div
       className={`${s.boardContainer} ${isBoardEmpty && s.emptyBoardContainer}`}
     >
       {currentBoard?.columns?.map((column) => (
-        <div className={s.boardColumn} key={column.id}>
+        <div
+          className={s.boardColumn}
+          key={column.id}
+          onDragOver={(e) => onDragOver(e)}
+          onDrop={(event) => {
+            onDrop(event, column.id);
+          }}
+        >
           <div
             className={`${s.boardColumnLabel} ${
-              themeMode === 'light' && s.boardColumnLabelLight
+              themeMode === "light" && s.boardColumnLabelLight
             }`}
           >
             {column.label} ({column.task.length})
           </div>
-          {column.task?.map((task) => {
+          {column.task?.map((task, idx) => {
             return (
               <div
+                onDragStart={(event) => handleStartDrag(event, task, column.id)}
+                onDrop={(event) => {
+                  onDropInTheSameColumn(event, column.id, idx);
+                }}
+                draggable={true}
                 className={s.columnTask}
                 key={task.id}
                 onClick={() =>
@@ -77,7 +132,8 @@ export const Board = () => {
               >
                 <div className={s.taskLabel}>{task.label}</div>
                 <div className={s.subTaskLabel}>
-                  0 of {task.subTasks?.length} subtasks
+                  {task.subTasks?.filter((subTask) => subTask.isDone).length} of{" "}
+                  {task.subTasks?.length} subtasks
                 </div>
               </div>
             );
@@ -91,7 +147,7 @@ export const Board = () => {
           </div>
           <Button
             onClick={() => navigate(`?${BOARD_ACTION}=${EDIT}`)}
-            label='+ Add New Column'
+            label="+ Add New Column"
           />
         </>
       )}

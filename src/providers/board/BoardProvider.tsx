@@ -65,6 +65,16 @@ type BoardContextAction = {
   handleDeleteTask: (props: DeleteTask) => void;
   handleChangeTaskStatus: (props: ChangeTaskStatus) => void;
   handleCheckSubtask: (props: CheckSubtask) => void;
+  updateTaskColumnDrag: (
+    oldColumnId: string,
+    newColumnId: string,
+    taskId: string
+  ) => void;
+  updateTaskInColumnDrag: (
+    columnId: string,
+    taskId: string,
+    newIndex: number
+  ) => void;
 };
 
 const BoardContext = createContext<[BoardContextState, BoardContextAction]>([
@@ -78,6 +88,8 @@ const BoardContext = createContext<[BoardContextState, BoardContextAction]>([
     handleDeleteTask: noop,
     handleChangeTaskStatus: noop,
     handleCheckSubtask: noop,
+    updateTaskColumnDrag: noop,
+    updateTaskInColumnDrag: noop,
   },
 ]);
 
@@ -90,6 +102,8 @@ export enum AddActionsReducerTypes {
   DeleteTask = "DELETE_TASK",
   ChangeTaskStatus = "CHANGE_TASK_STATUS",
   CheckSubTask = "CHECK_SUB_TASK",
+  UpdateTaskColumnDrag = "UPDATE_TASK_COLUMN_DRAG",
+  UpdateTaskInColumnDrag = "UPDATE_TASK_IN_COLUMN_DRAG",
 }
 
 export type BoardActionsType = {
@@ -103,6 +117,18 @@ export type BoardActionsType = {
     deleteTask?: DeleteTask;
     changeTaskStatus?: ChangeTaskStatus;
     checkSubtask?: CheckSubtask;
+    updateTaskColumnDrag?: {
+      oldColumnId: string;
+      newColumnId: string;
+      taskId: string;
+      boardId: string;
+    };
+    updateTaskInColumnDrag?: {
+      columnId: string;
+      taskId: string;
+      newIndex: number;
+      boardId: string;
+    };
   };
 };
 
@@ -192,6 +218,42 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const updateTaskColumnDrag = (
+    oldColumnId: string,
+    newColumnId: string,
+    taskId: string
+  ) => {
+    dispatch({
+      type: AddActionsReducerTypes.UpdateTaskColumnDrag,
+      payload: {
+        updateTaskColumnDrag: {
+          oldColumnId,
+          newColumnId,
+          taskId,
+          boardId: currentBoard?.id || "",
+        },
+      },
+    });
+  };
+
+  const updateTaskInColumnDrag = (
+    columnId: string,
+    taskId: string,
+    newIndex: number
+  ) => {
+    dispatch({
+      type: AddActionsReducerTypes.UpdateTaskInColumnDrag,
+      payload: {
+        updateTaskInColumnDrag: {
+          columnId,
+          taskId,
+          newIndex,
+          boardId: currentBoard?.id || "",
+        },
+      },
+    });
+  };
+
   return (
     <BoardContext.Provider
       value={[
@@ -205,6 +267,8 @@ export const BoardProvider = ({ children }: { children: ReactNode }) => {
           handleCheckSubtask,
           handleEditTask,
           handleDeleteTask,
+          updateTaskColumnDrag,
+          updateTaskInColumnDrag,
         },
       ]}
     >
