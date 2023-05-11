@@ -1,5 +1,4 @@
 .menuContent {
-  padding: 16px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -8,7 +7,6 @@
 }
 @media (min-width: 768px) {
   .menuContent {
-    padding: 12px 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -43,12 +41,15 @@
   line-height: 15px;
   letter-spacing: 2.4px;
   color: var(--medium-grey);
-  margin: 0px 0 19px 24px;
+  margin-left: 24px;
+  margin-bottom: 19px;
+
+  text-transform: uppercase;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1440px) {
   .boardsLabel {
-    margin: 32px 0 19px 24px;
+    margin-left: 32px;
   }
 }
 
@@ -58,7 +59,7 @@
 }
 
 .navLink {
-  height: 48px;
+  height: 49px;
   border-radius: 0 100px 100px 0;
   display: flex;
   width: calc(100% - 24px);
@@ -80,7 +81,7 @@
 
 @media (min-width: 768px) {
   .navLink {
-    gap: 16px;
+    gap: 12px;
   }
 }
 
@@ -119,10 +120,28 @@
 
 @media (min-width: 768px) {
   .createBoardButton {
-    gap: 16px;
+    gap: 12px;
+  }
+
+  .container {
+    padding-top: 20px;
   }
 }
 
 .createBoardButton:hover {
   background-color: var(--hover-item-boards);
+}
+
+@media (min-width: 1440px) {
+  .container {
+    padding-top: 35px;
+  }
+
+  .navLink {
+    padding-left: 32px;
+  }
+
+  .createBoardButton {
+    padding-left: 32px;
+  }
 }

@@ -83,10 +83,12 @@
 
   .addTaskButton {
     padding: 15px 25px;
-    width: 151px;
+    /* width: 151px; */
+
     display: flex;
     max-height: inherit;
     height: inherit;
+    white-space: nowrap;
   }
 
   .svgLogoLarge {

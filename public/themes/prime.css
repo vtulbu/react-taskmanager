@@ -4765,9 +4765,7 @@ button {
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #c7d2fe;
 }
-.p-sidebar .p-sidebar-header + .p-sidebar-content {
-  padding-top: 84px;
-}
+
 .p-sidebar-header {
   display: none !important;
 }

@@ -41,7 +41,7 @@ export const MenuBody = () => {
 
   return (
     <div className={s.menuContent}>
-      <div>
+      <div className={s.container}>
         <div className={s.boardsLabel}>ALL BOARDS ({boards.length})</div>
         <div className={s.navLinks}>
           {boards.map((p) => (
